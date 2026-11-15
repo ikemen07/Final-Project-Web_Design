@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SKINORA — Premium Skincare & Makeup E-Commerce</title>
+  <meta name="description" content="Toko online skincare dan makeup premium untuk wanita dan pria dengan 35 produk terkurasi untuk 5 jenis kulit." />
+  <meta property="og:title" content="SKINORA — Premium Skincare & Makeup" />
+  <meta property="og:description" content="Kemewahan perawatan kulit dan riasan terkurasi dengan formula dermatologis mutakhir." />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <!-- Tailwind CSS CDN for guaranteed fast standalone rendering -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            skinora: {
+              pink: '#E8A0B8',
+              rose: '#C96F91',
+              soft: '#FCE8EF',
+              darkbg: '#141114',
+              darkcard: '#1E1A1E'
+            }
+          },
+          fontFamily: {
+            serif: ['"Cormorant Garamond"', 'Georgia', 'serif'],
+            sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- SweetAlert2 -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/responsive.css" />
+</head>
+<body class="bg-[#FFF9FB] dark:bg-[#141114] text-[#292329] dark:text-[#F7EDF2] flex flex-col min-h-screen">
+
+  <!-- Navigasi bersama: lihat js/layout.js -->
+  <div id="site-header"></div>
+
+  <main class="flex-1">
+    <!-- HERO SECTION -->
+    <section class="relative overflow-hidden pt-10 pb-20 md:py-24 bg-gradient-to-b from-[#FFF0F5] to-[#FFF9FB] dark:from-[#1E171D] dark:to-[#141114]">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          
+          <!-- Hero Text -->
+          <div class="lg:col-span-6 space-y-6 text-center lg:text-left">
+            <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#FCE8EF] dark:bg-[#382631] text-[#C96F91] text-xs font-semibold tracking-wider uppercase">
+              <i class="fa-solid fa-sparkles text-[11px]"></i>
+              <span>Kemewahan Perawatan Dermatologis</span>
+            </div>
+
+            <h1 class="hero-headline text-4xl sm:text-5xl lg:text-6xl font-serif font-bold text-[#292329] dark:text-[#F7EDF2] leading-[1.15] text-balance">
+              Kecantikan Alami dengan Sentuhan Kemewahan
+            </h1>
+
+            <p class="text-base text-[#8A7D84] dark:text-[#B5A4AD] max-w-xl mx-auto lg:mx-0 leading-relaxed">
+              SKINORA menghadirkan 35 formula unggulan di 7 kategori perawatan kulit dan makeup, dirancang secara presisi untuk 5 karakteristik kulit unik wanita dan pria.
+            </p>
+
+            <div class="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-2">
+              <a href="catalog.html" class="btn-primary text-sm shadow-lg shadow-pink-500/20">
+                <span>Jelajahi Koleksi</span>
+                <i class="fa-solid fa-arrow-right text-xs"></i>
+              </a>
+              <button onclick="Assistant.toggle(true)" class="btn-secondary text-sm">
+                <i class="fa-solid fa-wand-magic-sparkles text-[#C96F91]"></i>
+                <span>Konsultasi AI Gratis</span>
+              </button>
+            </div>
+
+            <!-- Trust Metrics -->
+            <div class="pt-8 grid grid-cols-3 gap-6 border-t border-pink-200/60 dark:border-pink-900/40 text-left">
+              <div>
+                <p class="font-serif text-2xl font-bold text-[#C96F91]">35</p>
+                <p class="text-xs text-gray-500 dark:text-gray-400">Formula Spesifik</p>
+              </div>
+              <div>
+                <p class="font-serif text-2xl font-bold text-[#C96F91]">7</p>
+                <p class="text-xs text-gray-500 dark:text-gray-400">Kategori Lengkap</p>
+              </div>
+              <div>
+                <p class="font-serif text-2xl font-bold text-[#C96F91]">100%</p>
+                <p class="text-xs text-gray-500 dark:text-gray-400">Dermatologis Teruji</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Hero Image Showcase -->
+          <div class="lg:col-span-6 relative">
+            <div class="relative mx-auto max-w-lg lg:max-w-none">
+              <!-- Backdrop Glow -->
+              <div class="absolute inset-0 bg-gradient-to-tr from-[#E8A0B8] to-[#FCE8EF] dark:from-pink-950 dark:to-transparent rounded-3xl filter blur-3xl opacity-50 transform -rotate-3"></div>
+              
+              <!-- Luxury Hero Banner Card -->
+              <div class="relative rounded-3xl overflow-hidden shadow-2xl border border-white/60 dark:border-pink-900/40 group">
+                <img 
+                  src="assets/images/banners/hero-banner.jpg" 
+                  alt="SKINORA Luxury Skincare Collection" 
+                  class="w-full h-[440px] object-cover group-hover:scale-105 transition-transform duration-700" 
+                />
+                
+                <!-- Floating Glass Card Overlay -->
+                <div class="absolute bottom-5 left-5 right-5 p-4 rounded-2xl bg-white/85 dark:bg-[#1E1A1E]/85 backdrop-blur-md border border-white/50 dark:border-gray-800 shadow-lg flex items-center justify-between">
+                  <div>
+                    <span class="text-[10px] uppercase font-bold text-[#C96F91] tracking-wider">Koleksi Terpopuler</span>
+                    <h4 class="font-serif font-bold text-base text-gray-900 dark:text-gray-100">Rose Dew Revitalizing Essence</h4>
+                    <p class="text-xs text-gray-500 tabular-nums">Mulai dari Rp 189.000</p>
+                  </div>
+                  <a href="catalog.html?category=Serum" class="w-10 h-10 rounded-full bg-[#C96F91] hover:bg-[#B55A7E] text-white flex items-center justify-center transition-transform hover:scale-110 shadow-md">
+                    <i class="fa-solid fa-arrow-right text-xs"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- BANNER PROMO (carousel) -->
+    <section id="promo-section" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 md:py-14" aria-label="Promo SKINORA">
+      <div class="promo-carousel" id="promo-carousel">
+        <div class="promo-track" id="promo-track">
+
+          <!-- Promo 1: Gratis ongkir -->
+          <div class="promo-slide">
+            <img src="assets/images/banners/promo-banner.jpg" alt="" class="absolute inset-0 w-full h-full object-cover" onerror="this.src='assets/images/banners/promo-banner.svg'" />
+            <div class="absolute inset-0 bg-gradient-to-r from-black/55 via-black/25 to-transparent"></div>
+            <div class="relative p-7 md:p-14 max-w-xl text-white">
+              <span class="inline-block px-3 py-1 rounded-full bg-white/20 text-xs font-semibold">Promo Pengiriman</span>
+              <h3 class="text-3xl md:text-4xl font-serif font-bold mt-3 leading-tight">Gratis Ongkir ke Seluruh Indonesia</h3>
+              <p class="text-sm text-pink-100 mt-2">Berlaku otomatis untuk pesanan minimal Rp 200.000. Tidak perlu kode.</p>
+              <a href="catalog.html" class="inline-block mt-5 px-6 py-2.5 bg-white text-[#C96F91] hover:bg-pink-50 rounded-full text-xs font-bold transition-colors shadow">Belanja Sekarang</a>
+            </div>
+          </div>
+
+          <!-- Promo 2: Konsultasi AI -->
+          <div class="promo-slide bg-gradient-to-br from-[#C96F91] via-[#D88A9E] to-[#E8A0B8]">
+            <div class="relative p-7 md:p-14 max-w-xl text-white">
+              <span class="inline-block px-3 py-1 rounded-full bg-white/20 text-xs font-semibold">Konsultasi Gratis</span>
+              <h3 class="text-3xl md:text-4xl font-serif font-bold mt-3 leading-tight">Bingung Memilih Produk? Tanya Asisten AI Kami</h3>
+              <p class="text-sm text-pink-50 mt-2">Ceritakan jenis kulit Anda, dapatkan rekomendasi produk yang sesuai.</p>
+              <button type="button" onclick="Assistant.toggle(true)" class="inline-block mt-5 px-6 py-2.5 bg-white text-[#C96F91] hover:bg-pink-50 rounded-full text-xs font-bold transition-colors shadow">Mulai Konsultasi</button>
+            </div>
+            <i class="fa-solid fa-wand-magic-sparkles hidden md:block absolute right-16 top-1/2 -translate-y-1/2 text-[9rem] text-white/15" aria-hidden="true"></i>
+          </div>
+
+          <!-- Promo 3: Lacak pesanan -->
+          <div class="promo-slide bg-gradient-to-br from-[#292329] via-[#3b2a35] to-[#C96F91]">
+            <div class="relative p-7 md:p-14 max-w-xl text-white">
+              <span class="inline-block px-3 py-1 rounded-full bg-white/20 text-xs font-semibold">Pesanan Saya</span>
+              <h3 class="text-3xl md:text-4xl font-serif font-bold mt-3 leading-tight">Pantau Paket Anda dari Diproses sampai Tiba</h3>
+              <p class="text-sm text-pink-100 mt-2">Masukkan nomor pesanan untuk melihat tahap pengiriman terkini.</p>
+              <a href="pesanan.html" class="inline-block mt-5 px-6 py-2.5 bg-white text-[#C96F91] hover:bg-pink-50 rounded-full text-xs font-bold transition-colors shadow">Cek Status Pesanan</a>
+            </div>
+            <i class="fa-solid fa-truck-fast hidden md:block absolute right-16 top-1/2 -translate-y-1/2 text-[9rem] text-white/10" aria-hidden="true"></i>
+          </div>
+        </div>
+
+        <button type="button" class="promo-nav promo-prev" id="promo-prev" aria-label="Promo sebelumnya"><i class="fa-solid fa-chevron-left text-xs"></i></button>
+        <button type="button" class="promo-nav promo-next" id="promo-next" aria-label="Promo berikutnya"><i class="fa-solid fa-chevron-right text-xs"></i></button>
+        <div class="promo-dots" id="promo-dots"></div>
+      </div>
+    </section>
+
+    <!-- FEATURED PRODUCTS SECTION -->
+    <section class="py-16 bg-white dark:bg-[#1A161A] border-y border-pink-100 dark:border-pink-900/20">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
+          <div>
+            <span class="text-xs font-bold text-[#C96F91] uppercase tracking-widest">Koleksi Pilihan</span>
+            <h2 class="text-3xl sm:text-4xl font-serif font-bold text-[#292329] dark:text-[#F7EDF2] mt-1">Produk Unggulan SKINORA</h2>
+          </div>
+          <a href="catalog.html" class="inline-flex items-center gap-2 text-sm font-semibold text-[#C96F91] hover:underline">
+            <span>Lihat Semua Katalog</span>
+            <i class="fa-solid fa-arrow-right text-xs"></i>
+          </a>
+        </div>
+
+        <!-- Featured Products Grid -->
+        <div id="home-featured-grid" class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+          <!-- Dynamically populated via JS -->
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer id="contact" class="bg-white dark:bg-[#1E1A1E] border-t border-pink-100 dark:border-pink-900/30 pt-16 pb-12 transition-colors">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+        <!-- Brand Info -->
+        <div class="space-y-4">
+          <div class="flex items-center gap-2">
+            <div class="w-8 h-8 rounded-full bg-[#C96F91] flex items-center justify-center text-white text-xs">
+              <i class="fa-solid fa-spa"></i>
+            </div>
+            <span class="font-serif text-xl font-bold tracking-wider">SKINORA</span>
+          </div>
+          <p class="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">
+            Destinasi belanja daring kosmetik dan perawatan kulit premium dengan standar formulasi dermatologis nomor satu.
+          </p>
+          <div class="flex items-center gap-3 text-gray-400">
+            <a href="#" class="w-8 h-8 rounded-full border border-gray-200 dark:border-gray-700 flex items-center justify-center hover:text-[#C96F91] hover:border-[#C96F91] transition-colors"><i class="fa-brands fa-instagram text-xs"></i></a>
+            <a href="#" class="w-8 h-8 rounded-full border border-gray-200 dark:border-gray-700 flex items-center justify-center hover:text-[#C96F91] hover:border-[#C96F91] transition-colors"><i class="fa-brands fa-tiktok text-xs"></i></a>
+            <a href="#" class="w-8 h-8 rounded-full border border-gray-200 dark:border-gray-700 flex items-center justify-center hover:text-[#C96F91] hover:border-[#C96F91] transition-colors"><i class="fa-brands fa-whatsapp text-xs"></i></a>
+          </div>
+        </div>
+
+        <!-- Quick Links -->
+        <div>
+          <h4 class="font-serif font-bold text-sm text-gray-900 dark:text-gray-100 mb-4">Navigasi</h4>
+          <ul class="space-y-2 text-xs text-gray-500 dark:text-gray-400">
+            <li><a href="index.html" class="hover:text-[#C96F91] transition-colors">Home</a></li>
+            <li><a href="catalog.html" class="hover:text-[#C96F91] transition-colors">Produk</a></li>
+            <li><a href="about.html" class="hover:text-[#C96F91] transition-colors">About</a></li>
+            <li><a href="pesanan.html" class="hover:text-[#C96F91] transition-colors">Pesanan Saya</a></li>
+            <li><a href="login.html" class="hover:text-[#C96F91] transition-colors">Masuk / Daftar Akun</a></li>
+          </ul>
+        </div>
+
+        <!-- 7 Categories Links -->
+        <div>
+          <h4 class="font-serif font-bold text-sm text-gray-900 dark:text-gray-100 mb-4">Kategori Produk</h4>
+          <ul class="space-y-2 text-xs text-gray-500 dark:text-gray-400">
+            <li><a href="catalog.html?category=Cleanser" class="hover:text-[#C96F91] transition-colors">Pembersih (Cleanser)</a></li>
+            <li><a href="catalog.html?category=Toner" class="hover:text-[#C96F91] transition-colors">Penyegar (Toner)</a></li>
+            <li><a href="catalog.html?category=Serum" class="hover:text-[#C96F91] transition-colors">Serum &amp; Ampoule</a></li>
+            <li><a href="catalog.html?category=Moisturizer" class="hover:text-[#C96F91] transition-colors">Pelembap (Moisturizer)</a></li>
+            <li><a href="catalog.html?category=Sunscreen" class="hover:text-[#C96F91] transition-colors">Tabir Surya (Sunscreen)</a></li>
+            <li><a href="catalog.html?category=Masker" class="hover:text-[#C96F91] transition-colors">Masker Wajah</a></li>
+            <li><a href="catalog.html?category=Makeup" class="hover:text-[#C96F91] transition-colors">Riasan Higienis (Makeup)</a></li>
+          </ul>
+        </div>
+
+        <!-- Contact & Location -->
+        <div>
+          <h4 class="font-serif font-bold text-sm text-gray-900 dark:text-gray-100 mb-4">Layanan Pelanggan</h4>
+          <p class="text-xs text-gray-500 dark:text-gray-400 mb-2">
+            <i class="fa-solid fa-location-dot text-[#C96F91] mr-1.5"></i> Gedung SKINORA Tower, Senopati, Jakarta Selatan
+          </p>
+          <p class="text-xs text-gray-500 dark:text-gray-400 mb-2">
+            <i class="fa-solid fa-envelope text-[#C96F91] mr-1.5"></i> care@skinora.com
+          </p>
+          <p class="text-xs text-gray-500 dark:text-gray-400">
+            <i class="fa-solid fa-phone text-[#C96F91] mr-1.5"></i> +62 21 5550 8900
+          </p>
+        </div>
+      </div>
+
+      <div class="pt-8 border-t border-gray-100 dark:border-gray-800 flex flex-col md:flex-row items-center justify-between text-xs text-gray-400 gap-4">
+        <p>© <span class="current-year">2026</span> SKINORA E-Commerce. Final Project Web Design — Universitas.</p>
+        <p>Developed with HTML5, CSS3, &amp; Vanilla JavaScript.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- GLOBAL SEARCH MODAL -->
+  <div id="global-search-modal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm hidden flex items-start justify-center pt-20 px-4">
+    <div class="w-full max-w-xl bg-white dark:bg-[#1E1A1E] rounded-3xl shadow-2xl border border-pink-100 dark:border-gray-800 overflow-hidden">
+      <div class="p-4 border-b border-gray-100 dark:border-gray-800 flex items-center gap-3">
+        <i class="fa-solid fa-magnifying-glass text-[#C96F91]"></i>
+        <input 
+          type="text" 
+          id="global-search-input" 
+          placeholder="Cari produk berdasarkan nama, brand, atau kategori..." 
+          class="flex-1 bg-transparent border-none text-sm focus:outline-none dark:text-white"
+        />
+        <button id="global-search-close" class="text-gray-400 hover:text-gray-600 p-1">
+          <i class="fa-solid fa-xmark text-base"></i>
+        </button>
+      </div>
+      <div id="global-search-results" class="max-h-80 overflow-y-auto p-2">
+        <p class="text-xs text-gray-400 p-4 text-center">Ketik minimal 2 karakter untuk mencari produk...</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- APPLICATION SCRIPTS -->
+  <script src="js/data.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/notifications.js"></script>
+  <script src="js/validation.js"></script>
+  <script src="js/theme.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/products.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/wishlist.js"></script>
+  <script src="js/assistant.js"></script>
+  <script src="js/layout.js"></script>
+  <script src="js/app.js"></script>
+
+  <script>
+    // Carousel banner promo (otomatis berganti tiap 5 detik, jeda saat disentuh/diarahkan)
+    document.addEventListener('DOMContentLoaded', () => {
+      const box = document.getElementById('promo-carousel');
+      if (!box) return;
+      const track = document.getElementById('promo-track');
+      const dotsBox = document.getElementById('promo-dots');
+      const total = track.children.length;
+      let index = 0, timer = null;
+
+      dotsBox.innerHTML = Array.from({ length: total }, (_, i) =>
+        `<button type="button" class="promo-dot" data-i="${i}" aria-label="Promo ${i + 1}"></button>`).join('');
+
+      function go(i) {
+        index = (i + total) % total;
+        track.style.transform = `translateX(-${index * 100}%)`;
+        dotsBox.querySelectorAll('.promo-dot').forEach((d, n) => d.classList.toggle('is-active', n === index));
+      }
+      function start() {
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        stop(); timer = setInterval(() => go(index + 1), 5000);
+      }
+      function stop() { clearInterval(timer); }
+
+      document.getElementById('promo-prev').addEventListener('click', () => { go(index - 1); start(); });
+      document.getElementById('promo-next').addEventListener('click', () => { go(index + 1); start(); });
+      dotsBox.addEventListener('click', (e) => {
+        const b = e.target.closest('.promo-dot');
+        if (b) { go(Number(b.dataset.i)); start(); }
+      });
+      box.addEventListener('mouseenter', stop);
+      box.addEventListener('mouseleave', start);
+      go(0); start();
+    });
+  </script>
+
+  <script>
+    // Populate Homepage Featured Products dynamically
+    document.addEventListener('DOMContentLoaded', () => {
+      const featuredContainer = document.getElementById('home-featured-grid');
+      if (featuredContainer && window.Products) {
+        const featured = Products.getFeatured().slice(0, 4);
+        featuredContainer.innerHTML = featured.map(p => renderProductCardHTML(p)).join('');
+        Wishlist.syncHeartButtons();
+      }
+    });
+  </script>
+</body>
+</html>

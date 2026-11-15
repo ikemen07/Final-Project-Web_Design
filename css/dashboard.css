@@ -1,0 +1,64 @@
+/**
+ * Admin Dashboard Styles for SKINORA
+ * Management sidebar, analytics widgets, tables, and CRUD modals.
+ */
+
+.dashboard-sidebar-link {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.65rem 1rem;
+  border-radius: var(--radius-md);
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-text-muted);
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.dashboard-sidebar-link:hover,
+.dashboard-sidebar-link.active {
+  background-color: var(--color-soft-pink);
+  color: var(--color-deep-rose);
+  font-weight: 600;
+}
+
+.dark .dashboard-sidebar-link:hover,
+.dark .dashboard-sidebar-link.active {
+  background-color: rgba(201, 111, 145, 0.2);
+  color: #F7A8C3;
+}
+
+/* Stat KPI Card */
+.stat-card {
+  background: var(--color-card-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 1.25rem;
+  box-shadow: var(--shadow-soft);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Status Badges */
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.25rem 0.65rem;
+  border-radius: var(--radius-full);
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.status-pending { background: #FEF3C7; color: #D97706; }
+.status-processing { background: #DBEAFE; color: #2563EB; }
+.status-shipped { background: #EDE9FE; color: #7C3AED; }
+.status-completed { background: #D1FAE5; color: #059669; }
+.status-cancelled { background: #FEE2E2; color: #DC2626; }
+
+.dark .status-pending { background: rgba(217, 119, 6, 0.2); color: #FCD34D; }
+.dark .status-processing { background: rgba(37, 99, 235, 0.2); color: #93C5FD; }
+.dark .status-shipped { background: rgba(124, 58, 237, 0.2); color: #C4B5FD; }
+.dark .status-completed { background: rgba(5, 150, 105, 0.2); color: #6EE7B7; }
+.dark .status-cancelled { background: rgba(220, 38, 38, 0.2); color: #FCA5A5; }

@@ -1,0 +1,272 @@
+/**
+ * SKINORA — Premium Skincare & Makeup E-Commerce
+ * Master Style Sheet
+ */
+
+:root {
+  --color-primary-pink: #E8A0B8;
+  --color-deep-rose: #C96F91;
+  --color-soft-pink: #FCE8EF;
+  --color-accent-pink: #D88A9E;
+  --color-white: #FFFFFF;
+  --color-bg-light: #FFF9FB;
+  --color-card-bg: #FFFFFF;
+  --color-text-main: #292329;
+  --color-text-muted: #8A7D84;
+  --color-border: #F3D9E2;
+  --font-serif: 'Cormorant Garamond', Georgia, serif;
+  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-full: 9999px;
+  --shadow-soft: 0 10px 30px rgba(201, 111, 145, 0.08);
+  --shadow-hover: 0 18px 40px rgba(201, 111, 145, 0.16);
+}
+
+.dark {
+  --color-primary-pink: #E8A0B8;
+  --color-deep-rose: #D982A1;
+  --color-soft-pink: #2A1D24;
+  --color-white: #1E1A1E;
+  --color-bg-light: #141114;
+  --color-card-bg: #1E1A1E;
+  --color-text-main: #F7EDF2;
+  --color-text-muted: #B5A4AD;
+  --color-border: #3D2D37;
+  --shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.35);
+  --shadow-hover: 0 18px 40px rgba(201, 111, 145, 0.2);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--color-bg-light);
+  color: var(--color-text-main);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, .font-serif {
+  font-family: var(--font-serif);
+}
+
+/* Elegant selection highlight */
+::selection {
+  background-color: var(--color-soft-pink);
+  color: var(--color-deep-rose);
+}
+
+/* Luxury Product Card */
+.skinora-card {
+  background: var(--color-card-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-soft);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+}
+
+.skinora-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-hover);
+  border-color: var(--color-primary-pink);
+}
+
+/* Product Card Image Container */
+.card-media-wrapper {
+  position: relative;
+  width: 100%;
+  padding-top: 100%; /* 1:1 Aspect ratio */
+  background: linear-gradient(135deg, #FFF9FB 0%, #FDF0F5 100%);
+  overflow: hidden;
+}
+
+.dark .card-media-wrapper {
+  background: linear-gradient(135deg, #221D22 0%, #2D232A 100%);
+}
+
+.card-media-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 1.5rem;
+  transition: transform 0.5s ease;
+}
+
+.skinora-card:hover .card-media-img {
+  transform: scale(1.06);
+}
+
+/* Primary Button */
+.btn-primary {
+  background-color: var(--color-deep-rose);
+  color: #FFFFFF;
+  font-weight: 600;
+  padding: 0.65rem 1.4rem;
+  border-radius: var(--radius-full);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: all 0.25s ease;
+  border: 1px solid transparent;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.btn-primary:hover {
+  background-color: #B55A7E;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(201, 111, 145, 0.28);
+}
+
+/* Secondary Button */
+.btn-secondary {
+  background-color: transparent;
+  color: var(--color-text-main);
+  border: 1px solid var(--color-border);
+  font-weight: 600;
+  padding: 0.65rem 1.4rem;
+  border-radius: var(--radius-full);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: all 0.25s ease;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.btn-secondary:hover {
+  background-color: var(--color-soft-pink);
+  border-color: var(--color-primary-pink);
+  color: var(--color-deep-rose);
+}
+
+/* Soft Pill Category Badge */
+.skin-tag {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  padding: 0.25rem 0.65rem;
+  border-radius: var(--radius-full);
+  display: inline-block;
+}
+
+.skin-tag-oily { background: #FDE8EF; color: #B8587A; }
+.skin-tag-dry { background: #EFF6FF; color: #2563EB; }
+.skin-tag-combination { background: #F3E8FF; color: #7C3AED; }
+.skin-tag-sensitive { background: #ECFDF5; color: #059669; }
+.skin-tag-acne { background: #FFF1F2; color: #E11D48; }
+
+.dark .skin-tag-oily { background: rgba(184, 88, 122, 0.25); color: #F7A8C3; }
+.dark .skin-tag-dry { background: rgba(37, 99, 235, 0.25); color: #93C5FD; }
+.dark .skin-tag-combination { background: rgba(124, 58, 237, 0.25); color: #C4B5FD; }
+.dark .skin-tag-sensitive { background: rgba(5, 150, 105, 0.25); color: #6EE7B7; }
+.dark .skin-tag-acne { background: rgba(225, 29, 72, 0.25); color: #FDA4AF; }
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #E8A0B8;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #C96F91;
+}
+
+
+/* =========================================================
+   ANCHOR OFFSET (sticky header) & SMOOTH SCROLL
+   ========================================================= */
+html { scroll-behavior: smooth; }
+section[id] { scroll-margin-top: 6rem; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
+
+/* =========================================================
+   PROMO BANNER CAROUSEL (index.html)
+   ========================================================= */
+.promo-carousel { position: relative; border-radius: 1.5rem; overflow: hidden; box-shadow: var(--shadow-soft); }
+.promo-track { display: flex; transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
+.promo-slide { min-width: 100%; position: relative; min-height: 260px; display: flex; align-items: center; }
+.promo-dots { position: absolute; bottom: 14px; left: 0; right: 0; display: flex; justify-content: center; gap: 8px; }
+.promo-dot { width: 8px; height: 8px; border-radius: 9999px; background: rgba(255,255,255,0.5); border: 0; padding: 0; min-height: 0 !important; cursor: pointer; transition: width 0.3s, background 0.3s; }
+.promo-dot.is-active { width: 26px; background: #fff; }
+.promo-nav { position: absolute; top: 50%; transform: translateY(-50%); width: 38px; height: 38px; border-radius: 9999px; border: 0; background: rgba(255,255,255,0.85); color: var(--color-deep-rose); display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 2; }
+.promo-nav:hover { background: #fff; }
+.promo-prev { left: 12px; }
+.promo-next { right: 12px; }
+@media (max-width: 640px) { .promo-nav { display: none; } }
+
+/* =========================================================
+   ORDER STATUS TRACKER (pesanan.html)
+   Garis progres dengan ikon tiap tahap pengiriman.
+   --steps: jumlah tahap, --current: indeks tahap aktif (0-based)
+   ========================================================= */
+.tracker { --node: 46px; position: relative; display: grid; grid-template-columns: repeat(4, 1fr); padding: 4px 0 0; }
+.tracker-line, .tracker-fill {
+  position: absolute; top: calc(var(--node) / 2 + 4px); height: 4px; border-radius: 9999px;
+  left: 12.5%; transform: translateY(-50%);
+}
+.tracker-line { right: 12.5%; background: var(--color-border); }
+.tracker-fill {
+  width: calc(75% * var(--current) / 3);
+  background: linear-gradient(90deg, #E8A0B8, #C96F91);
+  transition: width 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.tracker-step { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 10px; padding: 0 4px; }
+.tracker-node {
+  width: var(--node); height: var(--node); border-radius: 9999px;
+  display: flex; align-items: center; justify-content: center; font-size: 17px;
+  background: var(--color-card-bg); color: var(--color-text-muted);
+  border: 3px solid var(--color-border);
+  transition: background 0.4s, border-color 0.4s, color 0.4s;
+}
+.tracker-step.is-done .tracker-node { background: #C96F91; border-color: #C96F91; color: #fff; }
+.tracker-step.is-current .tracker-node { background: #C96F91; border-color: #C96F91; color: #fff; box-shadow: 0 0 0 6px rgba(201, 111, 145, 0.2); animation: tracker-pulse 2s ease-in-out infinite; }
+.tracker-step.is-current.is-final .tracker-node { animation: none; background: #16a34a; border-color: #16a34a; box-shadow: 0 0 0 6px rgba(22, 163, 74, 0.18); }
+.tracker-label { font-size: 12px; font-weight: 700; color: var(--color-text-muted); }
+.tracker-step.is-done .tracker-label, .tracker-step.is-current .tracker-label { color: var(--color-text-main); }
+.tracker-desc { font-size: 11px; color: var(--color-text-muted); line-height: 1.4; max-width: 140px; }
+@keyframes tracker-pulse { 0%, 100% { box-shadow: 0 0 0 4px rgba(201,111,145,0.22); } 50% { box-shadow: 0 0 0 10px rgba(201,111,145,0.08); } }
+@media (prefers-reduced-motion: reduce) { .tracker-step.is-current .tracker-node { animation: none; } .tracker-fill { transition: none; } }
+
+/* Mobile: garis vertikal */
+@media (max-width: 640px) {
+  .tracker { grid-template-columns: 1fr; grid-template-rows: repeat(4, 92px); }
+  .tracker-line, .tracker-fill { left: calc(var(--node) / 2 - 2px + 4px); right: auto; width: 4px; transform: none; top: calc(var(--node) / 2 + 4px); }
+  .tracker-line { height: calc(92px * 3); }
+  .tracker-fill { height: calc(92px * 3 * var(--current) / 3); width: 4px; transition: height 0.9s cubic-bezier(0.16, 1, 0.3, 1); }
+  .tracker-step { flex-direction: row; align-items: flex-start; text-align: left; gap: 14px; padding: 0 4px; }
+  .tracker-text { padding-top: 4px; }
+  .tracker-desc { max-width: none; }
+}
+
+/* Order list item */
+.order-pick { transition: border-color 0.2s, background 0.2s; }
+.order-pick.is-selected { border-color: var(--color-deep-rose); background: var(--color-soft-pink); }

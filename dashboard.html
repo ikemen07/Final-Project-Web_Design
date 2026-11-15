@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Dashboard — SKINORA</title>
+  <meta name="description" content="Dashboard administrasi SKINORA untuk manajemen produk, pesanan, kategori, dan analisis penjualan." />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            skinora: {
+              pink: '#E8A0B8',
+              rose: '#C96F91',
+              soft: '#FCE8EF',
+              darkbg: '#141114',
+              darkcard: '#1E1A1E'
+            }
+          },
+          fontFamily: {
+            serif: ['"Cormorant Garamond"', 'Georgia', 'serif'],
+            sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <!-- SweetAlert2 -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/responsive.css" />
+  <link rel="stylesheet" href="css/dashboard.css" />
+</head>
+<body class="bg-[#FFF9FB] dark:bg-[#141114] text-[#292329] dark:text-[#F7EDF2] flex flex-col min-h-screen">
+
+  <!-- TOP BAR -->
+  <header class="sticky top-0 z-40 bg-white dark:bg-[#1E1A1E] border-b border-pink-100 dark:border-pink-900/30">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <a href="index.html" class="flex items-center gap-2">
+          <div class="w-8 h-8 rounded-full bg-[#C96F91] flex items-center justify-center text-white text-xs">
+            <i class="fa-solid fa-spa"></i>
+          </div>
+          <span class="font-serif text-xl font-bold tracking-wider">SKINORA</span>
+        </a>
+        <span class="text-xs px-2.5 py-0.5 rounded-full bg-pink-100 dark:bg-pink-950/60 text-[#C96F91] font-bold uppercase tracking-wider">
+          Admin Portal
+        </span>
+      </div>
+
+      <div class="flex items-center gap-4">
+        <a href="index.html" class="text-xs font-semibold text-gray-500 hover:text-[#C96F91] transition-colors flex items-center gap-1.5">
+          <i class="fa-solid fa-store"></i>
+          <span class="hidden sm:inline">Lihat Toko</span>
+        </a>
+
+        <button type="button" class="theme-toggle-btn w-8 h-8 rounded-full flex items-center justify-center text-gray-600 dark:text-gray-300 hover:bg-pink-50 dark:hover:bg-gray-800 transition-colors" aria-label="Ganti Tema">
+          <i class="theme-moon-icon fa-regular fa-moon text-xs"></i>
+          <i class="theme-sun-icon fa-regular fa-sun text-xs hidden"></i>
+        </button>
+
+        <div id="nav-user-container"></div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ADMIN CONTENT WRAPPER -->
+  <div id="admin-content" class="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full space-y-8">
+    
+    <!-- Header Title & Export Actions -->
+    <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-pink-100 dark:border-pink-900/30 pb-6">
+      <div>
+        <h1 class="text-3xl font-serif font-bold text-gray-900 dark:text-gray-100">
+          Executive Dashboard &amp; Inventaris
+        </h1>
+        <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">
+          Ringkasan performa penjualan, ketersediaan 35 produk, dan manajemen pesanan pelanggan.
+        </p>
+      </div>
+
+      <!-- Quick Action Buttons -->
+      <div class="flex flex-wrap items-center gap-2.5">
+        <a 
+          href="skinora-project.zip" 
+          download="skinora-project.zip" 
+          class="px-3.5 py-2 rounded-xl border border-pink-200 dark:border-pink-800 bg-[#FCE8EF] dark:bg-[#382631] text-xs font-bold text-[#C96F91] hover:bg-[#C96F91] hover:text-white flex items-center gap-2 transition-all shadow-sm"
+          title="Unduh seluruh source code proyek dalam format ZIP"
+        >
+          <i class="fa-solid fa-file-zipper text-sm"></i>
+          <span>Unduh Project (.ZIP)</span>
+        </a>
+
+        <button 
+          id="export-products-csv-btn" 
+          class="px-3.5 py-2 rounded-xl border border-gray-200 dark:border-gray-700 hover:border-[#C96F91] bg-white dark:bg-[#1E1A1E] text-xs font-semibold text-gray-700 dark:text-gray-300 flex items-center gap-2 transition-colors"
+        >
+          <i class="fa-solid fa-file-csv text-emerald-600 text-sm"></i>
+          <span>Unduh CSV Produk</span>
+        </button>
+
+        <button 
+          id="export-orders-csv-btn" 
+          class="px-3.5 py-2 rounded-xl border border-gray-200 dark:border-gray-700 hover:border-[#C96F91] bg-white dark:bg-[#1E1A1E] text-xs font-semibold text-gray-700 dark:text-gray-300 flex items-center gap-2 transition-colors"
+        >
+          <i class="fa-solid fa-file-csv text-blue-600 text-sm"></i>
+          <span>Unduh CSV Pesanan</span>
+        </button>
+
+        <button 
+          onclick="Dashboard.openCreateProductModal()" 
+          class="btn-primary text-xs py-2 px-4 shadow-sm"
+        >
+          <i class="fa-solid fa-plus text-xs"></i>
+          <span>Tambah Produk</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- 1. SUMMARY STATISTICS CARDS (6 KPIs) -->
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+      <!-- Total Products -->
+      <div class="stat-card">
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-[10px] font-bold text-gray-400 uppercase tracking-wider">Total Produk</span>
+          <div class="w-7 h-7 rounded-lg bg-pink-50 dark:bg-pink-950 text-[#C96F91] flex items-center justify-center text-xs">
+            <i class="fa-solid fa-boxes-stacked"></i>
+          </div>
+        </div>
+        <p id="stat-total-products" class="text-2xl font-serif font-bold text-gray-900 dark:text-gray-100 tabular-nums">35</p>
+        <span class="text-[10px] text-gray-400 mt-1 block">7 Kategori @ 5 Item</span>
+      </div>
+
+      <!-- Total Categories -->
+      <div class="stat-card">
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-[10px] font-bold text-gray-400 uppercase tracking-wider">Kategori</span>
+          <div class="w-7 h-7 rounded-lg bg-purple-50 dark:bg-purple-950 text-purple-600 flex items-center justify-center text-xs">
+            <i class="fa-solid fa-layer-group"></i>
+          </div>
+        </div>
+        <p id="stat-total-categories" class="text-2xl font-serif font-bold text-gray-900 dark:text-gray-100 tabular-nums">7</p>
+        <span class="text-[10px] text-gray-400 mt-1 block">Kategori Lengkap</span>
+      </div>
+
+      <!-- Total Orders -->
+      <div class="stat-card">
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-[10px] font-bold text-gray-400 uppercase tracking-wider">Total Pesanan</span>
+          <div class="w-7 h-7 rounded-lg bg-blue-50 dark:bg-blue-950 text-blue-600 flex items-center justify-center text-xs">
+            <i class="fa-solid fa-cart-shopping"></i>
+          </div>
+        </div>
+        <p id="stat-total-orders" class="text-2xl font-serif font-bold text-gray-900 dark:text-gray-100 tabular-nums">0</p>
+        <span class="text-[10px] text-emerald-600 font-semibold mt-1 block">Update Realtime</span>
+      </div>
+
+      <!-- Total Revenue -->
+      <div class="stat-card">
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-[10px] font-bold text-gray-400 uppercase tracking-wider">Total Pendapatan</span>
+          <div class="w-7 h-7 rounded-lg bg-emerald-50 dark:bg-emerald-950 text-emerald-600 flex items-center justify-center text-xs">
+            <i class="fa-solid fa-money-bill-trend-up"></i>
+          </div>
+        </div>
+        <p id="stat-total-revenue" class="text-lg font-bold text-[#C96F91] tabular-nums truncate">Rp 0</p>
+        <span class="text-[10px] text-gray-400 mt-1 block">Semua Transaksi</span>
+      </div>
+
+      <!-- Total Customers -->
+      <div class="stat-card">
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-[10px] font-bold text-gray-400 uppercase tracking-wider">Pelanggan</span>
+          <div class="w-7 h-7 rounded-lg bg-indigo-50 dark:bg-indigo-950 text-indigo-600 flex items-center justify-center text-xs">
+            <i class="fa-solid fa-users"></i>
+          </div>
+        </div>
+        <p id="stat-total-customers" class="text-2xl font-serif font-bold text-gray-900 dark:text-gray-100 tabular-nums">2</p>
+        <span class="text-[10px] text-gray-400 mt-1 block">Akun Terdaftar</span>
+      </div>
+
+      <!-- Low Stock Alert -->
+      <div class="stat-card border-amber-200 dark:border-amber-900/40">
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-[10px] font-bold text-amber-700 dark:text-amber-400 uppercase tracking-wider">Stok Menipis</span>
+          <div class="w-7 h-7 rounded-lg bg-amber-50 dark:bg-amber-950 text-amber-600 flex items-center justify-center text-xs">
+            <i class="fa-solid fa-triangle-exclamation"></i>
+          </div>
+        </div>
+        <p id="stat-low-stock" class="text-2xl font-serif font-bold text-amber-600 tabular-nums">4</p>
+        <span class="text-[10px] text-amber-600 mt-1 block">Perlu Restock (&le; 5 unit)</span>
+      </div>
+    </div>
+
+    <!-- 2. DATA VISUALIZATION WITH CHART.JS (3 Charts) -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+      
+      <!-- Chart 1: Sales Revenue Overview (Line Chart) -->
+      <div class="lg:col-span-6 bg-white dark:bg-[#1E1A1E] rounded-3xl p-5 border border-pink-100 dark:border-pink-900/30 shadow-sm">
+        <div class="flex items-center justify-between mb-4">
+          <div>
+            <h3 class="font-serif font-bold text-base text-gray-900 dark:text-gray-100">Tren Pendapatan Bulanan</h3>
+            <p class="text-[11px] text-gray-400">Total akumulasi transaksi penjualan toko (IDR)</p>
+          </div>
+          <span class="text-xs font-bold text-[#C96F91]">Semester 2, 2026</span>
+        </div>
+        <div class="h-64 relative">
+          <canvas id="salesOverviewChart"></canvas>
+        </div>
+      </div>
+
+      <!-- Chart 2: Order Status Statistics (Doughnut Chart) -->
+      <div class="lg:col-span-3 bg-white dark:bg-[#1E1A1E] rounded-3xl p-5 border border-pink-100 dark:border-pink-900/30 shadow-sm">
+        <h3 class="font-serif font-bold text-base text-gray-900 dark:text-gray-100 mb-1">Status Pesanan</h3>
+        <p class="text-[11px] text-gray-400 mb-4">Distribusi progres pesanan masuk</p>
+        <div class="h-64 relative">
+          <canvas id="orderStatusChart"></canvas>
+        </div>
+      </div>
+
+      <!-- Chart 3: Category Distribution (Bar Chart) -->
+      <div class="lg:col-span-3 bg-white dark:bg-[#1E1A1E] rounded-3xl p-5 border border-pink-100 dark:border-pink-900/30 shadow-sm">
+        <h3 class="font-serif font-bold text-base text-gray-900 dark:text-gray-100 mb-1">Distribusi Kategori</h3>
+        <p class="text-[11px] text-gray-400 mb-4">Jumlah produk per kategori katalog</p>
+        <div class="h-64 relative">
+          <canvas id="categoryDistributionChart"></canvas>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- 3. PRODUCT INVENTORY MANAGEMENT TABLE (CRUD) -->
+    <div class="bg-white dark:bg-[#1E1A1E] rounded-3xl p-6 border border-pink-100 dark:border-pink-900/30 shadow-sm space-y-4">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-gray-100 dark:border-gray-800">
+        <div>
+          <h2 class="font-serif font-bold text-xl text-gray-900 dark:text-gray-100">Manajemen Inventaris Produk</h2>
+          <p class="text-xs text-gray-400">Kelola inventaris, harga, dan varian jenis kulit 35 produk</p>
+        </div>
+
+        <div class="flex items-center gap-3">
+          <!-- Search in Table -->
+          <input 
+            type="text" 
+            id="dash-product-search" 
+            placeholder="Cari ID, nama produk..." 
+            class="px-3 py-1.5 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl text-xs focus:outline-none focus:border-[#C96F91] dark:text-gray-200"
+          />
+
+          <!-- Category Filter in Table -->
+          <select 
+            id="dash-product-cat-filter" 
+            class="px-3 py-1.5 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl text-xs text-gray-700 dark:text-gray-300 focus:outline-none focus:border-[#C96F91]"
+          >
+            <option value="all">Semua Kategori</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="responsive-table-wrapper">
+        <table class="w-full text-left border-collapse">
+          <thead>
+            <tr class="text-[10px] uppercase font-bold text-gray-400 border-b border-gray-100 dark:border-gray-800">
+              <th class="py-2.5 px-3">ID</th>
+              <th class="py-2.5 px-3">Produk</th>
+              <th class="py-2.5 px-3">Kategori</th>
+              <th class="py-2.5 px-3">Jenis Kulit</th>
+              <th class="py-2.5 px-3">Harga</th>
+              <th class="py-2.5 px-3">Stok</th>
+              <th class="py-2.5 px-3 text-center">Featured</th>
+              <th class="py-2.5 px-3 text-right">Aksi</th>
+            </tr>
+          </thead>
+          <tbody id="dashboard-products-tbody">
+            <!-- Populated via Dashboard.renderProductsTable() -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- 4. ORDERS MANAGEMENT TABLE -->
+    <div class="bg-white dark:bg-[#1E1A1E] rounded-3xl p-6 border border-pink-100 dark:border-pink-900/30 shadow-sm space-y-4">
+      <div class="flex items-center justify-between pb-4 border-b border-gray-100 dark:border-gray-800">
+        <div>
+          <h2 class="font-serif font-bold text-xl text-gray-900 dark:text-gray-100">Manajemen Pesanan Masuk</h2>
+          <p class="text-xs text-gray-400">Pembaruan status pesanan: Pending, Processing, Shipped, Completed, Cancelled</p>
+        </div>
+        <button onclick="CSVExport.exportOrders()" class="text-xs text-[#C96F91] hover:underline font-semibold flex items-center gap-1">
+          <i class="fa-solid fa-download"></i> Ekspor CSV Pesanan
+        </button>
+      </div>
+
+      <div class="responsive-table-wrapper">
+        <table class="w-full text-left border-collapse">
+          <thead>
+            <tr class="text-[10px] uppercase font-bold text-gray-400 border-b border-gray-100 dark:border-gray-800">
+              <th class="py-2.5 px-3">Order ID</th>
+              <th class="py-2.5 px-3">Pelanggan</th>
+              <th class="py-2.5 px-3">Tanggal</th>
+              <th class="py-2.5 px-3">Item Pesanan</th>
+              <th class="py-2.5 px-3">Total</th>
+              <th class="py-2.5 px-3">Pembayaran</th>
+              <th class="py-2.5 px-3">Ubah Status</th>
+            </tr>
+          </thead>
+          <tbody id="dashboard-orders-tbody">
+            <!-- Populated via Dashboard.renderOrdersTable() -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- 5. CATEGORY MANAGEMENT TABLE -->
+    <div class="bg-white dark:bg-[#1E1A1E] rounded-3xl p-6 border border-pink-100 dark:border-pink-900/30 shadow-sm space-y-4">
+      <div class="flex items-center justify-between pb-4 border-b border-gray-100 dark:border-gray-800">
+        <div>
+          <h2 class="font-serif font-bold text-xl text-gray-900 dark:text-gray-100">Manajemen Kategori</h2>
+          <p class="text-xs text-gray-400">Daftar 7 kategori utama dan produk terdaftar</p>
+        </div>
+        <button onclick="Dashboard.openCreateCategoryModal()" class="px-3.5 py-1.5 rounded-full border border-pink-200 dark:border-pink-800 text-xs font-semibold text-[#C96F91] hover:bg-pink-50 transition-colors">
+          + Tambah Kategori
+        </button>
+      </div>
+
+      <div class="responsive-table-wrapper">
+        <table class="w-full text-left border-collapse">
+          <thead>
+            <tr class="text-[10px] uppercase font-bold text-gray-400 border-b border-gray-100 dark:border-gray-800">
+              <th class="py-2.5 px-3">Slug ID</th>
+              <th class="py-2.5 px-3">Nama Kategori</th>
+              <th class="py-2.5 px-3">Deskripsi</th>
+              <th class="py-2.5 px-3">Jumlah Produk</th>
+              <th class="py-2.5 px-3 text-right">Aksi</th>
+            </tr>
+          </thead>
+          <tbody id="dashboard-categories-tbody">
+            <!-- Populated via Dashboard.renderCategoriesTable() -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- CRUD MODAL: ADD / EDIT PRODUCT -->
+  <div id="product-modal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="w-full max-w-2xl bg-white dark:bg-[#1E1A1E] rounded-3xl shadow-2xl border border-pink-100 dark:border-gray-800 overflow-hidden max-h-[90vh] flex flex-col">
+      <div class="px-6 py-4 border-b border-gray-100 dark:border-gray-800 flex items-center justify-between">
+        <h3 id="product-modal-title" class="font-serif font-bold text-lg text-gray-900 dark:text-gray-100">
+          Tambah Produk Baru
+        </h3>
+        <button onclick="Dashboard.closeProductModal()" class="text-gray-400 hover:text-gray-600 p-1">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+
+      <form id="product-form" class="p-6 overflow-y-auto space-y-4 text-xs">
+        <input type="hidden" name="product-id" id="product-id" />
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block font-semibold mb-1 text-gray-700 dark:text-gray-300">Nama Produk *</label>
+            <input type="text" name="name" required class="w-full px-3 py-2 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl focus:outline-none focus:border-[#C96F91] dark:text-gray-200" placeholder="Contoh: Hydrating Ceramide Cleanser" />
+          </div>
+
+          <div>
+            <label class="block font-semibold mb-1 text-gray-700 dark:text-gray-300">Brand *</label>
+            <input type="text" name="brand" required class="w-full px-3 py-2 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl focus:outline-none focus:border-[#C96F91] dark:text-gray-200" placeholder="SKINORA Lab" />
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block font-semibold mb-1 text-gray-700 dark:text-gray-300">Kategori *</label>
+            <select name="category" id="product-category" required class="w-full px-3 py-2 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl focus:outline-none focus:border-[#C96F91] dark:text-gray-200">
+              <!-- Dynamically populated -->
+            </select>
+          </div>
+
+          <div>
+            <label class="block font-semibold mb-1 text-gray-700 dark:text-gray-300">Sasaran Jenis Kulit *</label>
+            <select name="skinType" required class="w-full px-3 py-2 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl focus:outline-none focus:border-[#C96F91] dark:text-gray-200">
+              <option value="Berminyak">Berminyak (Oily)</option>
+              <option value="Kering">Kering (Dry)</option>
+              <option value="Kombinasi">Kombinasi (Combination)</option>
+              <option value="Sensitif">Sensitif (Sensitive)</option>
+              <option value="Berjerawat">Berjerawat (Acne-Prone)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div>
+            <label class="block font-semibold mb-1 text-gray-700 dark:text-gray-300">Harga (IDR) *</label>
+            <input type="number" name="price" required min="1" class="w-full px-3 py-2 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl focus:outline-none focus:border-[#C96F91] dark:text-gray-200" placeholder="150000" />
+          </div>
+
+          <div>
+            <label class="block font-semibold mb-1 text-gray-700 dark:text-gray-300">Stok Inventaris *</label>
+            <input type="number" name="stock" required min="0" class="w-full px-3 py-2 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl focus:outline-none focus:border-[#C96F91] dark:text-gray-200" placeholder="20" />
+          </div>
+
+          <div>
+            <label class="block font-semibold mb-1 text-gray-700 dark:text-gray-300">Rating Awal</label>
+            <input type="number" name="rating" step="0.1" min="1" max="5" value="4.8" class="w-full px-3 py-2 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl focus:outline-none focus:border-[#C96F91] dark:text-gray-200" />
+          </div>
+        </div>
+
+        <div>
+          <label class="block font-semibold mb-1 text-gray-700 dark:text-gray-300">Path File Gambar Produk</label>
+          <input type="text" name="image" class="w-full px-3 py-2 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl focus:outline-none focus:border-[#C96F91] dark:text-gray-200" placeholder="assets/images/products/cleanser-dry.jpg (kosongkan untuk otomatis)" />
+          <span class="text-[10px] text-gray-400 mt-1 block">Tersedia placeholder lokal otomatis sesuai kategori &amp; jenis kulit.</span>
+        </div>
+
+        <div>
+          <label class="block font-semibold mb-1 text-gray-700 dark:text-gray-300">Deskripsi &amp; Kandungan *</label>
+          <textarea name="description" rows="3" required class="w-full px-3 py-2 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl focus:outline-none focus:border-[#C96F91] dark:text-gray-200" placeholder="Jelaskan bahan aktif, tekstur, dan manfaat formula..."></textarea>
+        </div>
+
+        <div class="flex items-center gap-2 pt-2">
+          <input type="checkbox" name="featured" id="prod-featured" class="text-[#C96F91] focus:ring-0 rounded" />
+          <label for="prod-featured" class="font-semibold text-gray-700 dark:text-gray-300 cursor-pointer">
+            Jadikan Produk Unggulan (Tampil di Showcase Beranda)
+          </label>
+        </div>
+
+        <div class="pt-4 border-t border-gray-100 dark:border-gray-800 flex justify-end gap-3">
+          <button type="button" onclick="Dashboard.closeProductModal()" class="px-4 py-2 rounded-xl bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 font-semibold hover:bg-gray-200 transition-colors">
+            Batal
+          </button>
+          <button type="submit" class="btn-primary text-xs py-2 px-5">
+            Simpan Produk
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- CRUD MODAL: ADD CATEGORY -->
+  <div id="category-modal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="w-full max-w-md bg-white dark:bg-[#1E1A1E] rounded-3xl shadow-2xl border border-pink-100 dark:border-gray-800 p-6 space-y-4">
+      <div class="flex items-center justify-between pb-3 border-b border-gray-100 dark:border-gray-800">
+        <h3 class="font-serif font-bold text-lg text-gray-900 dark:text-gray-100">Tambah Kategori Baru</h3>
+        <button onclick="Dashboard.closeCategoryModal()" class="text-gray-400 hover:text-gray-600">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <form id="category-form" class="space-y-4 text-xs">
+        <div>
+          <label class="block font-semibold mb-1 text-gray-700 dark:text-gray-300">Nama Kategori *</label>
+          <input type="text" name="cat-name" required class="w-full px-3 py-2 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl focus:outline-none focus:border-[#C96F91] dark:text-gray-200" placeholder="Contoh: Lip Care" />
+        </div>
+        <div>
+          <label class="block font-semibold mb-1 text-gray-700 dark:text-gray-300">Deskripsi Singkat</label>
+          <textarea name="cat-desc" rows="2" class="w-full px-3 py-2 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl focus:outline-none focus:border-[#C96F91] dark:text-gray-200" placeholder="Perawatan khusus bibir..."></textarea>
+        </div>
+        <div class="flex justify-end gap-2 pt-2">
+          <button type="button" onclick="Dashboard.closeCategoryModal()" class="px-4 py-2 rounded-xl bg-gray-100 dark:bg-gray-800 text-gray-600 font-semibold">
+            Batal
+          </button>
+          <button type="submit" class="btn-primary text-xs py-2 px-5">
+            Simpan Kategori
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- APPLICATION SCRIPTS -->
+  <script src="js/data.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/notifications.js"></script>
+  <script src="js/validation.js"></script>
+  <script src="js/theme.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/products.js"></script>
+  <script src="js/orders.js"></script>
+  <script src="js/charts.js"></script>
+  <script src="js/csv-export.js"></script>
+  <script src="js/dashboard.js"></script>
+</body>
+</html>

@@ -1,0 +1,68 @@
+/**
+ * Responsive Styles for SKINORA
+ * Ensures flawless viewing on Mobile (<= 640px), Tablet (641px - 1024px), and Desktop (>= 1025px).
+ */
+
+/* Mobile Navigation Drawer */
+#mobile-menu {
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+}
+
+#mobile-menu.menu-open {
+  transform: translateX(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+#mobile-menu.menu-closed {
+  transform: translateX(100%);
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Responsive Table Container */
+.responsive-table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border-radius: var(--radius-md);
+}
+
+/* Touch target minimum sizes */
+@media (max-width: 640px) {
+  button, a.btn-primary, a.btn-secondary, input, select {
+    min-height: 42px;
+  }
+
+  .hero-headline {
+    font-size: 2.25rem !important;
+    line-height: 1.2 !important;
+  }
+
+  .catalog-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 0.75rem !important;
+  }
+
+  .card-media-img {
+    padding: 0.75rem !important;
+  }
+
+  .pdp-split {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+@media (min-width: 641px) and (max-width: 1024px) {
+  .catalog-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: 1.25rem !important;
+  }
+}
+
+@media (min-width: 1025px) {
+  .catalog-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+    gap: 1.5rem !important;
+  }
+}

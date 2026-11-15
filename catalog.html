@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Katalog Produk — SKINORA</title>
+  <meta name="description" content="Katalog 35 produk skincare dan makeup terkurasi untuk 5 jenis kulit dengan filter dinamis dan pengurutan harga." />
+  <meta property="og:title" content="Katalog Produk — SKINORA" />
+  <meta property="og:description" content="Koleksi lengkap pembersih, toner, serum, pelembap, sunscreen, masker, dan makeup." />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            skinora: {
+              pink: '#E8A0B8',
+              rose: '#C96F91',
+              soft: '#FCE8EF',
+              darkbg: '#141114',
+              darkcard: '#1E1A1E'
+            }
+          },
+          fontFamily: {
+            serif: ['"Cormorant Garamond"', 'Georgia', 'serif'],
+            sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- SweetAlert2 -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/responsive.css" />
+</head>
+<body class="bg-[#FFF9FB] dark:bg-[#141114] text-[#292329] dark:text-[#F7EDF2] flex flex-col min-h-screen">
+
+  <!-- Navigasi bersama: lihat js/layout.js -->
+  <div id="site-header"></div>
+
+  <!-- MAIN CATALOG VIEW -->
+  <main class="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12 w-full">
+    
+    <!-- Title & Top Summary Bar -->
+    <div class="mb-8 flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-pink-100 dark:border-pink-900/30 pb-6">
+      <div>
+        <span class="text-xs font-bold text-[#C96F91] uppercase tracking-widest">Koleksi Terlengkap</span>
+        <h1 class="text-3xl sm:text-4xl font-serif font-bold text-gray-900 dark:text-gray-100 mt-1">Katalog Produk SKINORA</h1>
+        <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">35 formula spesifik terdistribusi merata di 7 kategori dan 5 jenis kulit.</p>
+      </div>
+
+      <!-- Live Search & Sort Bar -->
+      <div class="flex flex-wrap items-center gap-3">
+        <!-- Search Box -->
+        <div class="relative w-full sm:w-64">
+          <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 text-xs"></i>
+          <input 
+            type="text" 
+            id="catalog-search-input" 
+            placeholder="Cari nama, bahan, brand..." 
+            class="w-full pl-9 pr-4 py-2 bg-white dark:bg-[#1E1A1E] border border-gray-200 dark:border-gray-700 rounded-full text-xs focus:outline-none focus:border-[#C96F91] dark:text-gray-200"
+          />
+        </div>
+
+        <!-- Sorting Select -->
+        <div class="relative">
+          <select 
+            id="catalog-sort-select" 
+            class="appearance-none pl-3.5 pr-8 py-2 bg-white dark:bg-[#1E1A1E] border border-gray-200 dark:border-gray-700 rounded-full text-xs font-medium text-gray-700 dark:text-gray-300 focus:outline-none focus:border-[#C96F91] cursor-pointer"
+          >
+            <option value="featured">Urutan: Produk Unggulan</option>
+            <option value="price_asc">Harga: Terendah ke Tertinggi</option>
+            <option value="price_desc">Harga: Tertinggi ke Terendah</option>
+            <option value="rating_desc">Rating Tertinggi (⭐ 4.8+)</option>
+            <option value="newest">Formula Terbaru</option>
+          </select>
+          <i class="fa-solid fa-chevron-down absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-[10px] pointer-events-none"></i>
+        </div>
+      </div>
+    </div>
+
+    <!-- Layout Split: Sidebar Filters & Product Grid -->
+    <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+      
+      <!-- SIDEBAR FILTERS (Sticky on Desktop) -->
+      <aside class="lg:col-span-1 space-y-6">
+        <div class="bg-white dark:bg-[#1E1A1E] rounded-3xl p-5 border border-pink-100 dark:border-pink-900/30 shadow-sm space-y-6">
+          <div class="flex items-center justify-between pb-3 border-b border-gray-100 dark:border-gray-800">
+            <h3 class="font-serif font-bold text-base text-gray-900 dark:text-gray-100 flex items-center gap-2">
+              <i class="fa-solid fa-sliders text-[#C96F91] text-xs"></i> Filter Produk
+            </h3>
+            <button id="clear-filters-btn" class="text-xs text-[#C96F91] hover:underline font-semibold">
+              Reset Filter
+            </button>
+          </div>
+
+          <!-- 1. Category Filter -->
+          <div>
+            <label class="block text-xs font-bold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-2.5">
+              Kategori Produk (7)
+            </label>
+            <div class="flex flex-wrap gap-1.5">
+              <button type="button" data-category-filter="all" class="px-3 py-1.5 rounded-full text-xs font-semibold bg-[#C96F91] text-white border border-[#C96F91] transition-all">
+                Semua
+              </button>
+              <button type="button" data-category-filter="Cleanser" class="px-3 py-1.5 rounded-full text-xs font-medium bg-white dark:bg-[#1E1A1E] border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:border-[#C96F91] transition-all">
+                Cleanser
+              </button>
+              <button type="button" data-category-filter="Toner" class="px-3 py-1.5 rounded-full text-xs font-medium bg-white dark:bg-[#1E1A1E] border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:border-[#C96F91] transition-all">
+                Toner
+              </button>
+              <button type="button" data-category-filter="Serum" class="px-3 py-1.5 rounded-full text-xs font-medium bg-white dark:bg-[#1E1A1E] border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:border-[#C96F91] transition-all">
+                Serum
+              </button>
+              <button type="button" data-category-filter="Moisturizer" class="px-3 py-1.5 rounded-full text-xs font-medium bg-white dark:bg-[#1E1A1E] border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:border-[#C96F91] transition-all">
+                Moisturizer
+              </button>
+              <button type="button" data-category-filter="Sunscreen" class="px-3 py-1.5 rounded-full text-xs font-medium bg-white dark:bg-[#1E1A1E] border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:border-[#C96F91] transition-all">
+                Sunscreen
+              </button>
+              <button type="button" data-category-filter="Masker" class="px-3 py-1.5 rounded-full text-xs font-medium bg-white dark:bg-[#1E1A1E] border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:border-[#C96F91] transition-all">
+                Masker
+              </button>
+              <button type="button" data-category-filter="Makeup" class="px-3 py-1.5 rounded-full text-xs font-medium bg-white dark:bg-[#1E1A1E] border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:border-[#C96F91] transition-all">
+                Makeup
+              </button>
+            </div>
+          </div>
+
+          <!-- 2. Skin Type Filter -->
+          <div class="pt-2 border-t border-gray-100 dark:border-gray-800">
+            <label class="block text-xs font-bold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-2.5">
+              Jenis Kulit Sasaran (5)
+            </label>
+            <div class="flex flex-wrap gap-1.5">
+              <button type="button" data-skin-filter="all" class="px-3 py-1.5 rounded-full text-xs font-semibold bg-[#C96F91] text-white border border-[#C96F91] transition-all">
+                Semua
+              </button>
+              <button type="button" data-skin-filter="Berminyak" class="px-3 py-1.5 rounded-full text-xs font-medium bg-white dark:bg-[#1E1A1E] border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:border-[#C96F91] transition-all">
+                Berminyak
+              </button>
+              <button type="button" data-skin-filter="Kering" class="px-3 py-1.5 rounded-full text-xs font-medium bg-white dark:bg-[#1E1A1E] border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:border-[#C96F91] transition-all">
+                Kering
+              </button>
+              <button type="button" data-skin-filter="Kombinasi" class="px-3 py-1.5 rounded-full text-xs font-medium bg-white dark:bg-[#1E1A1E] border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:border-[#C96F91] transition-all">
+                Kombinasi
+              </button>
+              <button type="button" data-skin-filter="Sensitif" class="px-3 py-1.5 rounded-full text-xs font-medium bg-white dark:bg-[#1E1A1E] border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:border-[#C96F91] transition-all">
+                Sensitif
+              </button>
+              <button type="button" data-skin-filter="Berjerawat" class="px-3 py-1.5 rounded-full text-xs font-medium bg-white dark:bg-[#1E1A1E] border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:border-[#C96F91] transition-all">
+                Berjerawat
+              </button>
+            </div>
+          </div>
+
+          <!-- 3. Price Range Filter -->
+          <div class="pt-2 border-t border-gray-100 dark:border-gray-800">
+            <label class="block text-xs font-bold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-2.5">
+              Rentang Harga (IDR)
+            </label>
+            <div class="grid grid-cols-2 gap-2">
+              <input 
+                type="number" 
+                id="filter-min-price" 
+                placeholder="Min Rp" 
+                class="w-full px-3 py-1.5 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl text-xs focus:outline-none focus:border-[#C96F91] dark:text-gray-200"
+              />
+              <input 
+                type="number" 
+                id="filter-max-price" 
+                placeholder="Maks Rp" 
+                class="w-full px-3 py-1.5 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl text-xs focus:outline-none focus:border-[#C96F91] dark:text-gray-200"
+              />
+            </div>
+          </div>
+
+          <!-- 4. Minimum Rating Filter -->
+          <div class="pt-2 border-t border-gray-100 dark:border-gray-800">
+            <label class="block text-xs font-bold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-2">
+              Rating Pelanggan
+            </label>
+            <div class="space-y-1.5 text-xs text-gray-600 dark:text-gray-400">
+              <label class="flex items-center gap-2 cursor-pointer">
+                <input type="radio" name="rating-filter" value="0" checked class="text-[#C96F91] focus:ring-0" />
+                <span>Semua Rating</span>
+              </label>
+              <label class="flex items-center gap-2 cursor-pointer">
+                <input type="radio" name="rating-filter" value="4.8" class="text-[#C96F91] focus:ring-0" />
+                <span class="flex items-center gap-1 text-amber-500">
+                  <i class="fa-solid fa-star text-[10px]"></i>
+                  <span class="text-gray-700 dark:text-gray-300">4.8 Ke Atas</span>
+                </span>
+              </label>
+              <label class="flex items-center gap-2 cursor-pointer">
+                <input type="radio" name="rating-filter" value="4.7" class="text-[#C96F91] focus:ring-0" />
+                <span class="flex items-center gap-1 text-amber-500">
+                  <i class="fa-solid fa-star text-[10px]"></i>
+                  <span class="text-gray-700 dark:text-gray-300">4.7 Ke Atas</span>
+                </span>
+              </label>
+            </div>
+          </div>
+
+          <!-- 5. Stock Status -->
+          <div class="pt-2 border-t border-gray-100 dark:border-gray-800">
+            <label class="block text-xs font-bold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-2">
+              Ketersediaan Stok
+            </label>
+            <select 
+              id="filter-stock-select" 
+              class="w-full px-3 py-1.5 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl text-xs text-gray-700 dark:text-gray-300 focus:outline-none focus:border-[#C96F91]"
+            >
+              <option value="all">Semua Produk</option>
+              <option value="in_stock">Tersedia Saja</option>
+              <option value="low_stock">Stok Menipis (<= 5 unit)</option>
+            </select>
+          </div>
+
+        </div>
+      </aside>
+
+      <!-- MAIN RESULTS GRID -->
+      <section class="lg:col-span-3 space-y-6">
+        
+        <!-- Live Count Indicator -->
+        <div class="flex items-center justify-between text-xs text-gray-500">
+          <span id="catalog-count-display" class="font-semibold text-gray-800 dark:text-gray-200">
+            Menampilkan 35 produk
+          </span>
+          <span class="text-[11px] text-[#C96F91]">✨ Formulasi Segar &amp; Asli</span>
+        </div>
+
+        <!-- Product Grid -->
+        <div id="catalog-product-grid" class="catalog-grid grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-3 gap-4 md:gap-6">
+          <!-- Populated dynamically via Catalog.render() -->
+        </div>
+
+        <!-- Empty State Message -->
+        <div id="catalog-empty-state" class="hidden text-center py-16 px-4 bg-white dark:bg-[#1E1A1E] rounded-3xl border border-pink-100 dark:border-pink-900/30">
+          <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-pink-50 dark:bg-pink-950/40 text-[#C96F91] flex items-center justify-center text-2xl">
+            <i class="fa-solid fa-box-open"></i>
+          </div>
+          <h3 class="font-serif text-2xl font-bold text-gray-800 dark:text-gray-200 mb-2">Tidak Ada Produk yang Sesuai</h3>
+          <p class="text-xs text-gray-500 max-w-sm mx-auto mb-6">
+            Kombinasi kata kunci, kategori, jenis kulit, atau rentang harga Anda belum menghasilkan produk. Silakan ubah filter.
+          </p>
+          <button onclick="Catalog.clearFilters()" class="btn-primary text-xs">
+            Reset Semua Filter
+          </button>
+        </div>
+
+      </section>
+
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="bg-white dark:bg-[#1E1A1E] border-t border-pink-100 dark:border-pink-900/30 py-10 mt-16 transition-colors">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-xs text-gray-400 space-y-2">
+      <p class="font-serif text-base font-bold text-[#C96F91] tracking-wider">SKINORA HAUTE DERMATOLOGY</p>
+      <p>© <span class="current-year">2026</span> SKINORA. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- APPLICATION SCRIPTS -->
+  <script src="js/data.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/notifications.js"></script>
+  <script src="js/validation.js"></script>
+  <script src="js/theme.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/products.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/wishlist.js"></script>
+  <script src="js/assistant.js"></script>
+  <script src="js/layout.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/catalog.js"></script>
+</body>
+</html>

@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Detail Produk — SKINORA</title>
+  <meta name="description" content="Informasi lengkap produk perawatan kulit dan makeup premium dari SKINORA." />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            skinora: {
+              pink: '#E8A0B8',
+              rose: '#C96F91',
+              soft: '#FCE8EF',
+              darkbg: '#141114',
+              darkcard: '#1E1A1E'
+            }
+          },
+          fontFamily: {
+            serif: ['"Cormorant Garamond"', 'Georgia', 'serif'],
+            sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- SweetAlert2 -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/responsive.css" />
+</head>
+<body class="bg-[#FFF9FB] dark:bg-[#141114] text-[#292329] dark:text-[#F7EDF2] flex flex-col min-h-screen">
+
+  <!-- Navigasi bersama: lihat js/layout.js -->
+  <div id="site-header"></div>
+
+  <!-- BREADCRUMB -->
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+    <nav class="flex items-center gap-2 text-xs text-gray-400">
+      <a href="index.html" class="hover:text-[#C96F91]">Beranda</a>
+      <span>/</span>
+      <a href="catalog.html" class="hover:text-[#C96F91]">Katalog</a>
+      <span>/</span>
+      <span id="pdp-breadcrumb-category" class="capitalize">Cleanser</span>
+      <span>/</span>
+      <span id="pdp-breadcrumb-name" class="text-gray-800 dark:text-gray-200 font-medium truncate max-w-xs">Nama Produk</span>
+    </nav>
+  </div>
+
+  <!-- MAIN PRODUCT DETAIL SECTION -->
+  <main id="pdp-main-content" class="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 w-full">
+    <div class="pdp-split grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+      
+      <!-- Left Column: Large Product Image Showcase -->
+      <div class="lg:col-span-6 bg-white dark:bg-[#1E1A1E] rounded-3xl p-8 border border-pink-100 dark:border-pink-900/30 shadow-sm flex items-center justify-center relative group">
+        <div class="w-full max-w-md aspect-square rounded-2xl overflow-hidden bg-gradient-to-tr from-[#FFF9FB] to-[#FDF0F5] dark:from-[#251E24] dark:to-[#1E1A1E] flex items-center justify-center p-8">
+          <img 
+            id="pdp-image" 
+            src="assets/images/banners/hero-banner.jpg" 
+            alt="Product Image" 
+            class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500" 
+            onerror="this.src='assets/images/banners/hero-banner.jpg'"
+          />
+        </div>
+      </div>
+
+      <!-- Right Column: Contiguous Purchase Module -->
+      <div class="lg:col-span-6 space-y-6">
+        
+        <!-- Brand & Tags -->
+        <div class="flex items-center gap-3">
+          <span id="pdp-brand" class="text-xs font-bold uppercase tracking-widest text-[#C96F91]">SKINORA LAB</span>
+          <span class="text-gray-300">·</span>
+          <span id="pdp-tag-category" class="text-xs font-semibold text-gray-600 dark:text-gray-400">Cleanser</span>
+          <span id="pdp-tag-skin" class="skin-tag skin-tag-oily text-[11px]">Berminyak</span>
+        </div>
+
+        <!-- Title -->
+        <h1 id="pdp-title" class="text-3xl sm:text-4xl font-serif font-bold text-gray-900 dark:text-gray-100 leading-tight">
+          Nama Produk
+        </h1>
+
+        <!-- Rating & Reviews -->
+        <div class="flex items-center gap-3 text-xs">
+          <div class="flex items-center text-amber-500 gap-1">
+            <i class="fa-solid fa-star"></i>
+            <span id="pdp-rating" class="font-bold text-gray-900 dark:text-gray-100">4.8</span>
+          </div>
+          <span class="text-gray-300">·</span>
+          <span class="text-gray-500">Teruji Klinis Secara Dermatologis</span>
+        </div>
+
+        <!-- Price -->
+        <div class="p-4 rounded-2xl bg-pink-50/60 dark:bg-pink-950/20 border border-pink-100 dark:border-pink-900/30 flex items-center justify-between">
+          <div>
+            <span class="text-[11px] text-gray-500 uppercase tracking-wider block">Harga Resmi (Termasuk Pajak)</span>
+            <span id="pdp-price" class="text-2xl sm:text-3xl font-bold text-[#C96F91] tabular-nums font-sans">
+              Rp 189.000
+            </span>
+          </div>
+          <div class="text-right">
+            <span class="text-[10px] bg-emerald-100 text-emerald-800 dark:bg-emerald-950/60 dark:text-emerald-300 px-2.5 py-1 rounded-full font-bold">
+              ✓ Ready Stock
+            </span>
+          </div>
+        </div>
+
+        <!-- Stock Availability -->
+        <div id="pdp-stock-status" class="text-xs">
+          <!-- Populated by JS -->
+        </div>
+
+        <!-- Description -->
+        <div class="space-y-2 pt-2 border-t border-gray-100 dark:border-gray-800">
+          <h3 class="text-xs font-bold text-gray-800 dark:text-gray-200 uppercase tracking-wider">Formula &amp; Manfaat</h3>
+          <p id="pdp-description" class="text-xs text-gray-600 dark:text-gray-300 leading-relaxed">
+            Deskripsi lengkap produk...
+          </p>
+        </div>
+
+        <!-- Quantity & Buy Action Row -->
+        <div class="pt-4 border-t border-gray-100 dark:border-gray-800 space-y-4">
+          <div class="flex items-center gap-4">
+            <!-- Stepper -->
+            <div class="flex items-center border border-gray-200 dark:border-gray-700 rounded-full bg-white dark:bg-[#1E1A1E] p-1">
+              <button 
+                id="pdp-qty-minus" 
+                class="w-8 h-8 rounded-full flex items-center justify-center text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                aria-label="Kurangi kuantitas"
+              >
+                <i class="fa-solid fa-minus text-xs"></i>
+              </button>
+              <input 
+                type="text" 
+                id="pdp-qty-input" 
+                value="1" 
+                readonly 
+                class="w-12 text-center text-xs font-bold bg-transparent border-none text-gray-800 dark:text-gray-200 focus:outline-none tabular-nums"
+              />
+              <button 
+                id="pdp-qty-plus" 
+                class="w-8 h-8 rounded-full flex items-center justify-center text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                aria-label="Tambah kuantitas"
+              >
+                <i class="fa-solid fa-plus text-xs"></i>
+              </button>
+            </div>
+
+            <!-- Tombol pesan langsung -->
+            <button id="pdp-add-to-cart" class="btn-primary flex-1 text-sm py-3 shadow-lg shadow-pink-500/20">
+              <i class="fa-solid fa-bag-shopping"></i>
+              <span>Pesan Sekarang</span>
+            </button>
+          </div>
+
+          <!-- Wishlist & Guarantee -->
+          <div class="flex items-center justify-between gap-4 pt-2">
+            <button id="pdp-wishlist-btn" class="flex-1 py-2.5 px-4 rounded-full border border-gray-200 dark:border-gray-700 hover:border-[#C96F91] text-xs font-semibold text-gray-700 dark:text-gray-300 flex items-center justify-center gap-2 transition-colors">
+              <i class="fa-regular fa-heart"></i>
+              <span>Simpan ke Wishlist</span>
+            </button>
+            <a href="pesanan.html" class="flex-1 py-2.5 px-4 rounded-full bg-pink-50 dark:bg-pink-950/40 text-[#C96F91] text-xs font-semibold flex items-center justify-center gap-1.5 hover:bg-pink-100 transition-colors">
+              <span>Lacak Pesanan</span>
+              <i class="fa-solid fa-arrow-right text-[10px]"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Reassurance Badges -->
+        <div class="grid grid-cols-3 gap-3 pt-6 border-t border-gray-100 dark:border-gray-800 text-center text-[10px] text-gray-500">
+          <div class="p-2 rounded-xl bg-gray-50 dark:bg-[#1A161A]">
+            <i class="fa-solid fa-truck-fast text-[#C96F91] text-sm mb-1 block"></i>
+            <span>Pengiriman Cepat</span>
+          </div>
+          <div class="p-2 rounded-xl bg-gray-50 dark:bg-[#1A161A]">
+            <i class="fa-solid fa-shield-halved text-[#C96F91] text-sm mb-1 block"></i>
+            <span>100% Original</span>
+          </div>
+          <div class="p-2 rounded-xl bg-gray-50 dark:bg-[#1A161A]">
+            <i class="fa-solid fa-rotate-left text-[#C96F91] text-sm mb-1 block"></i>
+            <span>Garansi Retur 7 Hari</span>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- RELATED PRODUCTS SECTION -->
+    <section class="mt-20 pt-12 border-t border-pink-100 dark:border-pink-900/30">
+      <div class="flex items-center justify-between mb-8">
+        <div>
+          <span class="text-xs font-bold text-[#C96F91] uppercase tracking-widest">Kombinasi Rekomendasi</span>
+          <h2 class="text-2xl sm:text-3xl font-serif font-bold text-gray-900 dark:text-gray-100 mt-0.5">Produk Terkait</h2>
+        </div>
+        <a href="catalog.html" class="text-xs font-semibold text-[#C96F91] hover:underline">Lihat Semua →</a>
+      </div>
+
+      <div id="pdp-related-grid" class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+        <!-- Populated via JS -->
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="bg-white dark:bg-[#1E1A1E] border-t border-pink-100 dark:border-pink-900/30 py-8 mt-16 text-center text-xs text-gray-400">
+    <p>© <span class="current-year">2026</span> SKINORA. All rights reserved.</p>
+  </footer>
+
+  <!-- APPLICATION SCRIPTS -->
+  <script src="js/data.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/notifications.js"></script>
+  <script src="js/validation.js"></script>
+  <script src="js/theme.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/products.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/wishlist.js"></script>
+  <script src="js/assistant.js"></script>
+  <script src="js/layout.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/product-detail.js"></script>
+</body>
+</html>

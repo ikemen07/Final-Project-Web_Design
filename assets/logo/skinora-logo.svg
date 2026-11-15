@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 64" fill="none">
+  <g transform="translate(4, 8)">
+    <!-- Elegant Botanical Monogram Icon -->
+    <circle cx="24" cy="24" r="23" stroke="#E8A0B8" stroke-width="1.5" fill="#FFF9FB"/>
+    <circle cx="24" cy="24" r="19" stroke="#FCE8EF" stroke-width="1"/>
+    <!-- Rose leaf and petal curves -->
+    <path d="M24 11C24 11 31 18 31 25C31 29 28 32 24 35C20 32 17 29 17 25C17 18 24 11 24 11Z" fill="#C96F91" opacity="0.85"/>
+    <path d="M24 20C24 20 28 24 28 27C28 29.5 26 31.5 24 33C22 31.5 20 29.5 20 27C20 24 24 20 24 20Z" fill="#FFF9FB"/>
+    <circle cx="24" cy="27" r="1.5" fill="#C96F91"/>
+  </g>
+  <!-- Brand Typographic Wordmark -->
+  <text x="64" y="38" font-family="'Cormorant Garamond', Georgia, serif" font-size="28" font-weight="600" letter-spacing="4" fill="currentColor">SKINORA</text>
+  <text x="66" y="49" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="7.5" font-weight="600" letter-spacing="2.5" fill="#C96F91" text-transform="uppercase">HAUTE DERMATOLOGY &amp; BEAUTY</text>
+</svg>
