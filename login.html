@@ -59,10 +59,6 @@
       </a>
 
       <div class="flex items-center gap-4 text-xs font-semibold">
-        <button type="button" class="theme-toggle-btn w-8 h-8 rounded-full flex items-center justify-center text-gray-600 dark:text-gray-300 hover:bg-pink-50 transition-colors">
-          <i class="theme-moon-icon fa-regular fa-moon"></i>
-          <i class="theme-sun-icon fa-regular fa-sun hidden"></i>
-        </button>
         <a href="index.html" class="hover:text-[#C96F91] transition-colors">Kembali ke Beranda</a>
       </div>
     </div>
@@ -87,14 +83,14 @@
         <div class="flex gap-2">
           <button 
             type="button" 
-            onclick="fillDemo('admin@skinora.com', 'admin123')" 
+            data-demo-email="admin@skinora.com" data-demo-password="admin123" 
             class="flex-1 py-1.5 px-2 bg-white dark:bg-[#1E1A1E] hover:bg-pink-100 dark:hover:bg-pink-900/30 border border-pink-200 dark:border-pink-800 rounded-lg text-[11px] font-semibold text-[#C96F91] transition-colors"
           >
             👑 Demo Admin
           </button>
           <button 
             type="button" 
-            onclick="fillDemo('siti@example.com', 'password123')" 
+            data-demo-email="siti@example.com" data-demo-password="password123" 
             class="flex-1 py-1.5 px-2 bg-white dark:bg-[#1E1A1E] hover:bg-pink-100 dark:hover:bg-pink-900/30 border border-pink-200 dark:border-pink-800 rounded-lg text-[11px] font-semibold text-gray-700 dark:text-gray-300 transition-colors"
           >
             🛍️ Demo Pelanggan
@@ -110,6 +106,7 @@
             type="email" 
             name="email" 
             id="login-email" 
+            autocomplete="username" 
             required 
             placeholder="admin@skinora.com atau nama@email.com" 
             class="w-full px-3.5 py-2.5 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl focus:outline-none focus:border-[#C96F91] dark:text-gray-200"
@@ -125,6 +122,7 @@
             type="password" 
             name="password" 
             id="login-password" 
+            autocomplete="current-password" 
             required 
             placeholder="••••••••" 
             class="w-full px-3.5 py-2.5 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl focus:outline-none focus:border-[#C96F91] dark:text-gray-200"
@@ -162,10 +160,23 @@
   <script src="js/app.js"></script>
 
   <script>
+    // Isi otomatis akun demo (admin / pelanggan)
     function fillDemo(email, password) {
-      document.getElementById('login-email').value = email;
-      document.getElementById('login-password').value = password;
+      const emailInput = document.getElementById('login-email');
+      const passInput = document.getElementById('login-password');
+      emailInput.value = email;
+      passInput.value = password;
+      [emailInput, passInput].forEach(el => {
+        el.dispatchEvent(new Event('input', { bubbles: true }));
+        el.classList.remove('border-rose-500');
+      });
+      document.querySelectorAll('.validation-error-msg').forEach(el => el.remove());
+      Notifications.toast('Kredensial demo terisi. Klik "Masuk ke Akun".', 'info');
     }
+
+    document.querySelectorAll('[data-demo-email]').forEach(btn => {
+      btn.addEventListener('click', () => fillDemo(btn.dataset.demoEmail, btn.dataset.demoPassword));
+    });
 
     document.getElementById('login-form').addEventListener('submit', (e) => {
       e.preventDefault();

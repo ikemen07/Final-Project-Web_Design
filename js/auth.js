@@ -162,44 +162,26 @@ const Auth = {
 
     const user = this.getCurrentUser();
     if (user) {
+      // Sudah login: tampilkan nama (tanpa dropdown) + tombol keluar
+      const esc = (v) => String(v ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+      const target = user.role === 'admin' ? 'dashboard.html' : 'pesanan.html';
+      const title = user.role === 'admin' ? 'Buka Admin Dashboard' : 'Lihat pesanan saya';
       userContainer.innerHTML = `
-        <div class="relative group">
-          <button class="flex items-center gap-2 py-1.5 px-3 rounded-full hover:bg-pink-50 dark:hover:bg-gray-800 text-sm font-medium transition-colors">
-            <span class="w-7 h-7 rounded-full bg-[#E8A0B8] text-white flex items-center justify-center text-xs font-bold uppercase">
-              ${user.name.charAt(0)}
-            </span>
-            <span class="hidden md:inline max-w-[100px] truncate text-gray-700 dark:text-gray-200">${user.name.split(' ')[0]}</span>
-            <i class="fa-solid fa-chevron-down text-xs text-gray-400 group-hover:rotate-180 transition-transform"></i>
+        <div class="flex items-center gap-1">
+          <a href="${target}" title="${title}" class="flex items-center gap-2 py-1.5 pl-1.5 pr-3 rounded-full hover:bg-pink-50 text-sm font-medium transition-colors">
+            <span class="w-7 h-7 rounded-full bg-[#E8A0B8] text-white flex items-center justify-center text-xs font-bold uppercase">${esc(user.name.charAt(0))}</span>
+            <span class="hidden sm:inline max-w-[120px] truncate text-gray-700">${esc(user.name)}</span>
+          </a>
+          <button type="button" onclick="Auth.logout()" title="Keluar" aria-label="Keluar" class="w-8 h-8 rounded-full flex items-center justify-center text-gray-400 hover:text-rose-600 hover:bg-rose-50 transition-colors">
+            <i class="fa-solid fa-arrow-right-from-bracket text-xs"></i>
           </button>
-          <!-- Dropdown -->
-          <div class="absolute right-0 mt-2 w-48 py-2 bg-white dark:bg-[#1E1A1E] rounded-xl shadow-xl border border-gray-100 dark:border-gray-800 hidden group-hover:block z-50">
-            <div class="px-4 py-2 border-b border-gray-100 dark:border-gray-800">
-              <p class="text-xs text-gray-400 font-medium">Masuk sebagai</p>
-              <p class="text-xs font-bold text-gray-800 dark:text-gray-200 truncate">${user.email}</p>
-              <span class="inline-block mt-1 text-[10px] font-semibold px-2 py-0.5 rounded ${user.role === 'admin' ? 'bg-purple-100 text-purple-700 dark:bg-purple-900/40 dark:text-purple-300' : 'bg-pink-100 text-pink-700 dark:bg-pink-900/40 dark:text-pink-300'}">
-                ${user.role.toUpperCase()}
-              </span>
-            </div>
-            ${user.role === 'admin' ? `
-              <a href="dashboard.html" class="flex items-center gap-2 px-4 py-2 text-xs text-gray-700 dark:text-gray-300 hover:bg-pink-50 dark:hover:bg-gray-800 transition-colors">
-                <i class="fa-solid fa-chart-line text-[#C96F91]"></i> Admin Dashboard
-              </a>
-            ` : `
-              <a href="pesanan.html" class="flex items-center gap-2 px-4 py-2 text-xs text-gray-700 dark:text-gray-300 hover:bg-pink-50 dark:hover:bg-gray-800 transition-colors">
-                <i class="fa-solid fa-truck-fast text-[#C96F91]"></i> Pesanan Saya
-              </a>
-            `}
-            <button onclick="Auth.logout()" class="w-full text-left flex items-center gap-2 px-4 py-2 text-xs text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-950/30 transition-colors">
-              <i class="fa-solid fa-arrow-right-from-bracket"></i> Keluar
-            </button>
-          </div>
         </div>
       `;
     } else {
       userContainer.innerHTML = `
-        <a href="login.html" class="flex items-center gap-2 py-1.5 px-3.5 rounded-full border border-gray-200 dark:border-gray-700 hover:border-[#E8A0B8] text-xs font-semibold text-gray-700 dark:text-gray-200 hover:text-[#C96F91] transition-all">
+        <a href="login.html" class="flex items-center gap-2 py-1.5 px-4 rounded-full bg-[#C96F91] hover:bg-[#B55A7E] text-xs font-semibold text-white transition-colors">
           <i class="fa-regular fa-user"></i>
-          <span>Masuk / Daftar</span>
+          <span>Login</span>
         </a>
       `;
     }

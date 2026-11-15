@@ -92,6 +92,21 @@ const Storage = {
     const existingUsers = this.get(STORAGE_KEYS.USERS);
     if (!existingUsers || !Array.isArray(existingUsers) || existingUsers.length === 0) {
       this.set(STORAGE_KEYS.USERS, initial.users || []);
+    } else {
+      // Pastikan akun demo selalu ada dengan sandi yang benar (data lama bisa hilang/berubah)
+      let usersChanged = false;
+      (initial.users || []).forEach(demo => {
+        const found = existingUsers.find(u => u && u.email && u.email.toLowerCase() === demo.email);
+        if (!found) {
+          existingUsers.push(demo);
+          usersChanged = true;
+        } else if (found.password !== demo.password || found.role !== demo.role) {
+          found.password = demo.password;
+          found.role = demo.role;
+          usersChanged = true;
+        }
+      });
+      if (usersChanged) this.set(STORAGE_KEYS.USERS, existingUsers);
     }
 
     // 4. Orders (Initial realistic orders)

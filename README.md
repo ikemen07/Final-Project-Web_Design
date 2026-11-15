@@ -54,14 +54,14 @@
 - **Status Pesanan (Pesanan Saya)**: Garis progres berikon (Dibuat → Diproses → Dikirim → Selesai) untuk tiap pesanan, pencarian lewat nomor pesanan, daftar pesanan akun, dan pembatalan pesanan yang masih *Pending* (stok dikembalikan).
 - **Simulasi Autentikasi Pengguna & Role Guard**: Role Admin (akses dashboard penuh) dan Role Customer (akses belanja dan pesanan). Dashboard tidak ditampilkan di navigasi publik; admin masuk lewat `login.html`, lalu membukanya dari menu akun.
 - **Konsultan Kulit AI (Assistant)**: Asisten diagnosis jenis kulit bertahap dan pencarian bahasa alami dengan pencocokan produk katalog tanpa memerlukan API key eksternal.
-- **Tema Ganda (Light / Dark Mode)**: Penggantian tema instan dengan penyimpanan preferensi pengguna di Local Storage.
-- **Daftar Keinginan (Wishlist)**: Penandaan produk favorit dengan tombol hati interaktif dan pemindahan langsung ke halaman checkout.
+- **Tampilan Terang**: Mode gelap sudah dihapus agar tampilan konsisten.
+- **Produk Favorit**: Ikon hati pada produk menandai favorit; ikon tas di navigasi membuka panel yang hanya berisi produk yang di-like (bisa langsung Pesan atau Hapus).
 
 ---
 
 ## 5. Website Page Descriptions
 
-**Navigasi tetap (4 menu, dibuat oleh `js/layout.js`):** Home · Produk · About (Sejarah Toko, Lokasi, Contact) · Pesanan Saya (Status Pesanan).
+**Navigasi tetap (4 menu tanpa dropdown, dibuat oleh `js/layout.js`):** Home · Produk · About · Pesanan Saya. Di kanan: pencarian, ikon favorit, dan tombol Login (berubah menjadi nama pengguna setelah masuk).
 
 ### Halaman 1: Home (`index.html`)
 Hero section, **banner promo berupa carousel** (Gratis Ongkir, Konsultasi AI, Cek Status Pesanan; otomatis berganti dan bisa digeser), serta produk unggulan (*Featured Products*).

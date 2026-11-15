@@ -3,32 +3,16 @@
  * Menyisipkan strip promo, navigasi utama, drawer mobile, dan modal pencarian
  * ke elemen <div id="site-header"></div> di setiap halaman publik.
  *
- * Navigasi tetap (4 menu):
- *   Home | Produk | About (Sejarah Toko, Lokasi, Contact) | Pesanan Saya (Status Pesanan)
+ * Navigasi tetap (4 menu, tanpa dropdown):
+ *   Home | Produk | About | Pesanan Saya
  */
 
 (function () {
   const NAV_ITEMS = [
     { label: 'Home', href: 'index.html', pages: ['index.html', ''] },
     { label: 'Produk', href: 'catalog.html', pages: ['catalog.html', 'product.html'] },
-    {
-      label: 'About',
-      href: 'about.html',
-      pages: ['about.html'],
-      children: [
-        { label: 'Sejarah Toko', href: 'about.html#sejarah', icon: 'fa-landmark' },
-        { label: 'Lokasi', href: 'about.html#lokasi', icon: 'fa-location-dot' },
-        { label: 'Contact', href: 'about.html#kontak', icon: 'fa-envelope' }
-      ]
-    },
-    {
-      label: 'Pesanan Saya',
-      href: 'pesanan.html',
-      pages: ['pesanan.html'],
-      children: [
-        { label: 'Status Pesanan', href: 'pesanan.html', icon: 'fa-truck-fast' }
-      ]
-    }
+    { label: 'About', href: 'about.html', pages: ['about.html'] },
+    { label: 'Pesanan Saya', href: 'pesanan.html', pages: ['pesanan.html'] }
   ];
 
   const currentPage = (window.location.pathname.split('/').pop() || 'index.html').toLowerCase();
@@ -36,46 +20,12 @@
 
   function desktopItem(item) {
     const active = isActive(item);
-    const base = 'whitespace-nowrap transition-colors hover:text-[#C96F91]';
-    const color = active ? 'text-[#C96F91]' : '';
-
-    if (!item.children) {
-      return `<a href="${item.href}" class="${base} ${color}" ${active ? 'aria-current="page"' : ''}>${item.label}</a>`;
-    }
-
-    return `
-      <div class="relative group">
-        <a href="${item.href}" class="${base} ${color} inline-flex items-center gap-1.5" ${active ? 'aria-current="page"' : ''}>
-          ${item.label}
-          <i class="fa-solid fa-chevron-down text-[9px] opacity-60 group-hover:rotate-180 group-focus-within:rotate-180 transition-transform"></i>
-        </a>
-        <div class="absolute left-1/2 -translate-x-1/2 top-full pt-4 hidden group-hover:block group-focus-within:block z-50">
-          <ul class="min-w-[190px] py-2 bg-white dark:bg-[#1E1A1E] rounded-xl shadow-xl border border-pink-100 dark:border-gray-800">
-            ${item.children.map(c => `
-              <li>
-                <a href="${c.href}" class="flex items-center gap-3 px-4 py-2.5 text-xs font-medium text-gray-700 dark:text-gray-300 hover:bg-pink-50 dark:hover:bg-gray-800 hover:text-[#C96F91] transition-colors">
-                  <i class="fa-solid ${c.icon} w-4 text-center text-[#C96F91]"></i>${c.label}
-                </a>
-              </li>`).join('')}
-          </ul>
-        </div>
-      </div>`;
+    return `<a href="${item.href}" class="whitespace-nowrap transition-colors hover:text-[#C96F91] ${active ? 'text-[#C96F91]' : ''}" ${active ? 'aria-current="page"' : ''}>${item.label}</a>`;
   }
 
   function mobileItem(item) {
-    const active = isActive(item);
-    const color = active ? 'text-[#C96F91]' : 'text-gray-700 dark:text-gray-300';
-    const head = `<a href="${item.href}" class="${color} hover:text-[#C96F91] py-2 block">${item.label}</a>`;
-    if (!item.children) return head;
-    return `
-      <div>
-        ${head}
-        <ul class="ml-3 pl-3 border-l border-pink-100 dark:border-gray-800 space-y-1 mb-1">
-          ${item.children.map(c => `
-            <li><a href="${c.href}" class="flex items-center gap-2.5 py-1.5 text-xs font-medium text-gray-500 dark:text-gray-400 hover:text-[#C96F91]">
-              <i class="fa-solid ${c.icon} w-4 text-center text-[#C96F91]"></i>${c.label}</a></li>`).join('')}
-        </ul>
-      </div>`;
+    const color = isActive(item) ? 'text-[#C96F91]' : 'text-gray-700';
+    return `<a href="${item.href}" class="${color} hover:text-[#C96F91] py-2 block">${item.label}</a>`;
   }
 
   const headerHTML = `
@@ -103,14 +53,10 @@
         <button type="button" class="search-trigger-btn w-9 h-9 rounded-full flex items-center justify-center text-gray-600 dark:text-gray-300 hover:bg-pink-50 dark:hover:bg-gray-800 transition-colors" aria-label="Buka Pencarian">
           <i class="fa-solid fa-magnifying-glass text-sm"></i>
         </button>
-        <button type="button" class="theme-toggle-btn w-9 h-9 rounded-full flex items-center justify-center text-gray-600 dark:text-gray-300 hover:bg-pink-50 dark:hover:bg-gray-800 transition-colors" aria-label="Ganti Tema">
-          <i class="theme-moon-icon fa-regular fa-moon text-sm"></i>
-          <i class="theme-sun-icon fa-regular fa-sun text-sm hidden"></i>
-        </button>
-        <a href="catalog.html" class="relative w-9 h-9 rounded-full flex items-center justify-center text-gray-600 dark:text-gray-300 hover:bg-pink-50 dark:hover:bg-gray-800 transition-colors" aria-label="Lihat Wishlist">
-          <i class="fa-regular fa-heart text-sm"></i>
+        <button type="button" class="wishlist-open-btn relative w-9 h-9 rounded-full flex items-center justify-center text-gray-600 hover:bg-pink-50 transition-colors" aria-label="Buka produk favorit">
+          <i class="fa-solid fa-bag-shopping text-sm"></i>
           <span class="wishlist-badge absolute -top-1 -right-1 w-4 h-4 bg-[#C96F91] text-white text-[10px] font-bold rounded-full hidden items-center justify-center">0</span>
-        </a>
+        </button>
         <div id="nav-user-container"></div>
         <button type="button" id="mobile-menu-toggle" class="md:hidden w-9 h-9 rounded-full flex items-center justify-center text-gray-600 dark:text-gray-300 hover:bg-pink-50 dark:hover:bg-gray-800 transition-colors" aria-label="Buka Menu Mobile">
           <i class="fa-solid fa-bars text-sm"></i>
@@ -154,11 +100,24 @@
     </div>
   </div>`;
 
+  const wishlistDrawerHTML = `
+  <div id="wishlist-drawer" class="fixed inset-0 z-50 hidden" role="dialog" aria-modal="true" aria-label="Produk favorit">
+    <div class="absolute inset-0 bg-black/50 backdrop-blur-sm" data-wishlist-close></div>
+    <aside class="absolute right-0 top-0 h-full w-full max-w-sm bg-white shadow-2xl flex flex-col">
+      <div class="flex items-center justify-between px-5 h-16 border-b border-gray-100 shrink-0">
+        <h2 class="font-serif text-xl font-bold">Produk Favorit</h2>
+        <button type="button" data-wishlist-close class="p-2 text-gray-400 hover:text-gray-600" aria-label="Tutup"><i class="fa-solid fa-xmark text-lg"></i></button>
+      </div>
+      <div id="wishlist-drawer-body" class="flex-1 overflow-y-auto p-4 space-y-3"></div>
+    </aside>
+  </div>`;
+
   const mount = document.getElementById('site-header');
   if (mount) {
     mount.insertAdjacentHTML('beforebegin', headerHTML);
     mount.remove();
   }
+  document.body.insertAdjacentHTML('beforeend', wishlistDrawerHTML);
   if (!document.getElementById('global-search-modal')) {
     document.body.insertAdjacentHTML('beforeend', searchModalHTML);
   }
