@@ -91,8 +91,8 @@ const INITIAL_USERS = [
   },
   {
     id: 'USR-002',
-    name: 'Siti Rahmawati',
-    email: 'siti@example.com',
+    name: 'Daniel Effendi',
+    email: 'daniel@gmail.com',
     password: 'password123',
     phone: '081987654321',
     role: 'customer',
@@ -108,8 +108,8 @@ const INITIAL_ORDERS = [
   {
     orderId: 'SKN-202611-89F1',
     customerId: 'USR-002',
-    customerName: 'Siti Rahmawati',
-    customerEmail: 'siti@example.com',
+    customerName: 'Daniel Effendi',
+    customerEmail: 'daniel@gmail.com',
     customerPhone: '081987654321',
     deliveryAddress: 'Jl. Senopati No. 45, Kebayoran Baru, Jakarta Selatan',
     city: 'Jakarta Selatan',
