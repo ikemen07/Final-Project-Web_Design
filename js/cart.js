@@ -115,21 +115,18 @@ const Cart = {
   /**
    * Calculate cart financial totals
    */
-  getTotals(freeShippingThreshold = 200000, flatShipping = 20000) {
+  getTotals(flatShipping = 20000) {
     const items = this.getItems();
     const count = items.reduce((sum, item) => sum + item.quantity, 0);
     const subtotal = items.reduce((sum, item) => sum + item.product.price * item.quantity, 0);
 
-    const shipping = subtotal === 0 ? 0 : subtotal >= freeShippingThreshold ? 0 : flatShipping;
-    const isFreeShipping = subtotal > 0 && subtotal >= freeShippingThreshold;
+    const shipping = subtotal === 0 ? 0 : flatShipping;
     const total = subtotal + shipping;
 
     return {
       count,
       subtotal,
       shipping,
-      isFreeShipping,
-      freeShippingThreshold,
       total
     };
   },

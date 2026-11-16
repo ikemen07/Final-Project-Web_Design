@@ -1,6 +1,6 @@
 /**
  * Shared Layout for SKINORA
- * Menyisipkan strip promo, navigasi utama, drawer mobile, dan modal pencarian
+ * Menyisipkan navigasi utama, drawer mobile, dan modal pencarian
  * ke elemen <div id="site-header"></div> di setiap halaman publik.
  *
  * Navigasi tetap (4 menu, tanpa dropdown):
@@ -29,10 +29,6 @@
   }
 
   const headerHTML = `
-  <div class="bg-[#C96F91] text-white text-xs py-2 px-4 text-center font-medium tracking-wide">
-    <span><strong>GRATIS ONGKIR</strong> untuk semua pesanan minimal Rp 200.000 ke seluruh Indonesia</span>
-  </div>
-
   <header class="sticky top-0 z-40 bg-white/90 dark:bg-[#1E1A1E]/90 backdrop-blur-md border-b border-pink-100 dark:border-pink-900/30 transition-colors">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4 md:gap-8">
       <a href="index.html" class="flex items-center gap-2.5 shrink-0 group">

@@ -42,8 +42,8 @@
 
 ## 4. Main Features
 
-- **Katalog 49 Produk Multi-Kriteria**: Filter pencarian instan (nama, brand, deskripsi), 8 kategori, 5 jenis kulit, rentang harga, rating, ketersediaan stok, dan 5 metode pengurutan.
-- **Pesan Langsung & Checkout**: Tombol *Pesan* di kartu produk dan halaman detail langsung membuka halaman checkout. Daftar item di checkout bisa diubah jumlahnya atau dihapus (dengan konfirmasi), dilengkapi subtotal otomatis, batas stok, dan bilah progres *Gratis Ongkir* (target Rp 200.000). Tidak ada menu Keranjang di navigasi.
+- **Katalog 49 Produk Multi-Kriteria**: Filter pencarian instan (nama, brand, deskripsi), 8 kategori, 5 jenis kulit, rentang harga, dan 4 metode pengurutan.
+- **Pesan Langsung & Checkout**: Tombol *Pesan* di kartu produk dan halaman detail langsung membuka halaman checkout. Daftar item di checkout bisa diubah jumlahnya atau dihapus (dengan konfirmasi), dilengkapi subtotal otomatis, dan batas stok. Tidak ada menu Keranjang di navigasi.
 - **Checkout & Simulasi Pembayaran**: Formulir pemesanan tervalidasi dengan opsi Transfer Bank (BCA/Mandiri/BRI), E-Wallet (GoPay/OVO/ShopeePay), dan Cash on Delivery (COD).
 - **Admin Dashboard & CRUD Inventaris**:
   - Statistik Ringkasan (6 KPI: Produk, Kategori, Pesanan, Pendapatan, Pelanggan, Stok Menipis).
@@ -51,7 +51,7 @@
   - Tambah, Lihat, Edit, dan Hapus Produk serta Kategori.
   - Perubahan status pesanan (*Pending, Processing, Shipped, Completed, Cancelled*).
   - Ekspor data produk dan pesanan ke file CSV berstandar RFC 4180 dengan UTF-8 BOM.
-- **Status Pesanan (Pesanan Saya)**: Garis progres berikon (Dibuat → Diproses → Dikirim → Selesai) untuk tiap pesanan, pencarian lewat nomor pesanan, daftar pesanan akun, dan pembatalan pesanan yang masih *Pending* (stok dikembalikan).
+- **Status Pesanan (My Order)**: Garis progres berikon (Dibuat → Diproses → Dikirim → Selesai) untuk tiap pesanan, pencarian lewat nomor pesanan, daftar pesanan akun, dan pembatalan pesanan yang masih *Pending* (stok dikembalikan).
 - **Simulasi Autentikasi Pengguna & Role Guard**: Role Admin (akses dashboard penuh) dan Role Customer (akses belanja dan pesanan). Dashboard tidak ditampilkan di navigasi publik; admin masuk lewat `login.html`, lalu membukanya dari menu akun.
 - **Konsultan Kulit AI (Assistant)**: Asisten diagnosis jenis kulit bertahap dan pencarian bahasa alami dengan pencocokan produk katalog tanpa memerlukan API key eksternal.
 - **Tampilan Terang**: Mode gelap sudah dihapus agar tampilan konsisten.
@@ -61,13 +61,13 @@
 
 ## 5. Website Page Descriptions
 
-**Navigasi tetap (4 menu tanpa dropdown, dibuat oleh `js/layout.js`):** Home · Produk · About · Pesanan Saya. Di kanan: pencarian, ikon favorit, dan tombol Login (berubah menjadi nama pengguna setelah masuk).
+**Navigasi tetap (4 menu tanpa dropdown, dibuat oleh `js/layout.js`):** Home · Produk · About · My Order. Di kanan: pencarian, ikon favorit, dan tombol Login (berubah menjadi nama pengguna setelah masuk).
 
 ### Halaman 1: Home (`index.html`)
-Hero section, **banner promo berupa carousel** (Gratis Ongkir, Konsultasi AI, Cek Status Pesanan; otomatis berganti dan bisa digeser), serta produk unggulan (*Featured Products*).
+Hero section, **banner promo berupa carousel** (Konsultasi AI, Cek Status Pesanan; otomatis berganti dan bisa digeser), serta produk unggulan (*Featured Products*).
 
 ### Halaman 2: Produk (`catalog.html`)
-Pusat eksplorasi produk dengan filter gabungan: 8 kategori, 5 jenis kulit, rentang harga, rating minimum, ketersediaan stok, live search, dan 5 metode pengurutan. Menampilkan *empty state* yang informatif jika filter tidak menghasilkan produk.
+Pusat eksplorasi produk dengan filter gabungan: 8 kategori, 5 jenis kulit, rentang harga, live search, dan 4 metode pengurutan. Menampilkan *empty state* yang informatif jika filter tidak menghasilkan produk.
 
 ### Halaman 3: Detail Produk (`product.html`)
 Foto produk, brand, harga, stok aktual, stepper kuantitas yang terkontrol stok, tombol *Pesan Sekarang*, tombol *Simpan ke Wishlist*, deskripsi formula aktif, dan produk terkait.
@@ -75,11 +75,11 @@ Foto produk, brand, harga, stok aktual, stepper kuantitas yang terkontrol stok, 
 ### Halaman 4: About (`about.html`)
 Tiga bagian yang dapat dibuka dari dropdown menu About: **Sejarah Toko** (linimasa), **Lokasi** (alamat, jam buka, peta OpenStreetMap), dan **Contact** (email, telepon, form pesan dengan validasi dan penyimpanan Local Storage `skinora_messages`).
 
-### Halaman 5: Pesanan Saya > Status Pesanan (`pesanan.html`)
+### Halaman 5: My Order > Status Pesanan (`pesanan.html`)
 Garis progres berikon yang menunjukkan tahap paket (Dibuat, Diproses, Dikirim, Selesai; horizontal di desktop, vertikal di mobile). Pelanggan yang login melihat daftar pesanannya; siapa pun bisa melacak lewat nomor pesanan (contoh demo: `SKN-202611-89F1`). Pesanan *Pending* dapat dibatalkan. Status berubah ketika admin memperbaruinya di dashboard.
 
 ### Halaman 6: Checkout (`cart.html`)
-Dibuka lewat tombol *Pesan*. Daftar item dengan kontrol jumlah, bilah progres gratis ongkir, dan formulir checkout tervalidasi (telepon, email, kode pos, alamat, metode pembayaran simulasi). Setelah pesanan dibuat, pengguna diarahkan ke halaman Status Pesanan.
+Dibuka lewat tombol *Pesan*. Daftar item dengan kontrol jumlah dan formulir checkout tervalidasi (telepon, email, kode pos, alamat, metode pembayaran simulasi). Setelah pesanan dibuat, pengguna diarahkan ke halaman Status Pesanan.
 
 ### Halaman 7: Admin Dashboard (`dashboard.html`)
 Portal pengelola toko dengan proteksi role admin (tidak ada di navigasi publik). 6 kartu KPI, 3 grafik Chart.js, CRUD produk dan kategori, pembaruan status pesanan, dan ekspor CSV.
@@ -156,7 +156,7 @@ SKINORA/
 ├── catalog.html                # Halaman Katalog Produk & Filter
 ├── product.html                # Halaman Rincian Produk
 ├── about.html                  # About: Sejarah Toko, Lokasi, Contact
-├── pesanan.html                # Pesanan Saya: Status Pesanan (garis progres)
+├── pesanan.html                # My Order: Status Pesanan (garis progres)
 ├── cart.html                   # Halaman Checkout
 ├── dashboard.html              # Halaman Admin Dashboard
 ├── login.html                  # Halaman Masuk Akun
@@ -177,7 +177,7 @@ SKINORA/
 │   ├── products.js             # Operasi CRUD Produk & Kategori
 │   ├── catalog.js              # Kontroler Filter Dinamis, Pencarian, & Sorting
 │   ├── product-detail.js       # Kontroler Halaman Detail Produk & Related Grid
-│   ├── layout.js               # Navigasi bersama (Home, Produk, About, Pesanan Saya)
+│   ├── layout.js               # Navigasi bersama (Home, Produk, About, My Order)
 │   ├── pesanan.js              # Kontroler Status Pesanan & garis progres
 │   ├── cart.js                 # Daftar item checkout, penghitungan total, Pesan langsung
 │   ├── wishlist.js             # Kontroler Daftar Keinginan & Sinkronisasi Heart
@@ -192,7 +192,7 @@ SKINORA/
 ├── assets/
 │   ├── images/
 │   │   ├── products/           # Direktori 49 foto produk (.jpg)
-│   │   ├── banners/            # Banner Hero dan Promo Resolusi Tinggi
+│   │   ├── banners/            # Banner Hero
 │   │   └── icons/              # Aset Ikon Pendukung
 │   └── logo/
 │       └── skinora-logo.svg    # Monogram Vektor & Wordmark Brand SKINORA
@@ -255,7 +255,7 @@ Aplikasi menggunakan key penyimpanan terstruktur pada `localStorage`:
 > *Instruksi Pengambilan Tangkapan Layar: Jalankan aplikasi di browser, buka masing-masing halaman, dan simpan tangkapan layar ke folder `assets/screenshots/`.*
 
 1. **[Screenshot Placeholder 1]: Beranda (Homepage - Hero & Featured Section)**  
-   *Menampilkan navigasi Pink & White, banner promo, headline hero, dan showcase 4 produk unggulan.*
+   *Menampilkan navigasi Pink & White, headline hero, dan showcase 4 produk unggulan.*
 
 2. **[Screenshot Placeholder 2]: Katalog Produk & Filter Multi-Kriteria**  
    *Menampilkan sidebar filter 8 kategori, 5 jenis kulit, rentang harga, dan grid 49 produk responsif.*
@@ -264,7 +264,7 @@ Aplikasi menggunakan key penyimpanan terstruktur pada `localStorage`:
    *Menampilkan gambar besar produk, stepper kuantitas, status stok, tombol Pesan Sekarang, dan related products.*
 
 4. **[Screenshot Placeholder 4]: Checkout & Formulir Pemesanan**  
-   *Menampilkan tabel item belanja, bilah batas gratis ongkir, validasi formulir pelanggan, dan pilihan metode pembayaran.*
+   *Menampilkan tabel item belanja, validasi formulir pelanggan, dan pilihan metode pembayaran.*
 
 5. **[Screenshot Placeholder 5]: Admin Dashboard & Visualisasi Chart.js**  
    *Menampilkan 6 kartu KPI, grafik analitik penjualan bulanan, status pesanan, dan tabel CRUD produk.*

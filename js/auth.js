@@ -165,7 +165,7 @@ const Auth = {
       // Sudah login: tampilkan nama (tanpa dropdown) + tombol keluar
       const esc = (v) => String(v ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
       const target = user.role === 'admin' ? 'dashboard.html' : 'pesanan.html';
-      const title = user.role === 'admin' ? 'Buka Admin Dashboard' : 'Lihat pesanan saya';
+      const title = user.role === 'admin' ? 'Buka Admin Dashboard' : 'Lihat My Order';
       userContainer.innerHTML = `
         <div class="flex items-center gap-1">
           <a href="${target}" title="${title}" class="flex items-center gap-2 py-1.5 pl-1.5 pr-3 rounded-full hover:bg-pink-50 text-sm font-medium transition-colors">

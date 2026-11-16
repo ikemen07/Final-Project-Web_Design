@@ -1,6 +1,6 @@
 /**
  * Catalog Page Controller for SKINORA
- * Combinable filters (Search, 7 Categories, 5 Skin Types, Price Range, Rating, Stock)
+ * Combinable filters (Search, 7 Categories, 5 Skin Types, Price Range)
  * and 5 Sorting orders with dynamic rendering.
  */
 
@@ -11,8 +11,6 @@ const Catalog = {
     skinType: 'all',
     minPrice: null,
     maxPrice: null,
-    minRating: 0,
-    stockStatus: 'all',
     sortBy: 'featured'
   },
 
@@ -85,24 +83,6 @@ const Catalog = {
       });
     }
 
-    // Rating Filter
-    const ratingRadios = document.querySelectorAll('input[name="rating-filter"]');
-    ratingRadios.forEach(radio => {
-      radio.addEventListener('change', () => {
-        this.state.minRating = Number(radio.value);
-        this.render();
-      });
-    });
-
-    // Stock Status
-    const stockSelect = document.getElementById('filter-stock-select');
-    if (stockSelect) {
-      stockSelect.addEventListener('change', (e) => {
-        this.state.stockStatus = e.target.value;
-        this.render();
-      });
-    }
-
     // Sorting Dropdown
     const sortSelect = document.getElementById('catalog-sort-select');
     if (sortSelect) {
@@ -136,8 +116,6 @@ const Catalog = {
       skinType: 'all',
       minPrice: null,
       maxPrice: null,
-      minRating: 0,
-      stockStatus: 'all',
       sortBy: 'featured'
     };
 
@@ -153,12 +131,6 @@ const Catalog = {
 
     const sortSelect = document.getElementById('catalog-sort-select');
     if (sortSelect) sortSelect.value = 'featured';
-
-    const stockSelect = document.getElementById('filter-stock-select');
-    if (stockSelect) stockSelect.value = 'all';
-
-    const ratingRadios = document.querySelectorAll('input[name="rating-filter"]');
-    ratingRadios.forEach(r => r.checked = r.value === '0');
 
     // Reset button pills
     document.querySelectorAll('[data-category-filter]').forEach(b => {
@@ -222,28 +194,13 @@ const Catalog = {
       products = products.filter(p => p.price <= this.state.maxPrice);
     }
 
-    // 5. Rating
-    if (this.state.minRating > 0) {
-      products = products.filter(p => p.rating >= this.state.minRating);
-    }
-
-    // 6. Stock status
-    if (this.state.stockStatus === 'in_stock') {
-      products = products.filter(p => p.stock > 0);
-    } else if (this.state.stockStatus === 'low_stock') {
-      products = products.filter(p => p.stock > 0 && p.stock <= 5);
-    }
-
-    // 7. Sorting
+    // 5. Sorting
     switch (this.state.sortBy) {
       case 'price_asc':
         products.sort((a, b) => a.price - b.price);
         break;
       case 'price_desc':
         products.sort((a, b) => b.price - a.price);
-        break;
-      case 'rating_desc':
-        products.sort((a, b) => b.rating - a.rating);
         break;
       case 'newest':
         // reverse ID order

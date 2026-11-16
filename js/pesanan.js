@@ -1,5 +1,5 @@
 /**
- * Halaman Pesanan Saya > Status Pesanan
+ * Halaman My Order > Status Pesanan
  * - Pelanggan yang login melihat daftar pesanannya (admin melihat semua)
  * - Siapa pun bisa melacak lewat nomor pesanan
  * - Garis status menampilkan tahap: Dibuat > Diproses > Dikirim > Selesai
@@ -190,7 +190,7 @@ const OrderTracker = {
                   <span class="font-semibold tabular-nums">${this.rp(i.price * i.quantity)}</span>
                 </li>`).join('')}
             </ul>
-            <div class="flex justify-between pt-2 text-gray-500"><span>Ongkir</span><span class="tabular-nums">${o.shipping ? this.rp(o.shipping) : 'Gratis'}</span></div>
+            <div class="flex justify-between pt-2 text-gray-500"><span>Ongkir</span><span class="tabular-nums">${this.rp(o.shipping)}</span></div>
             <div class="flex justify-between pt-1 text-sm font-bold"><span>Total</span><span class="text-[#C96F91] tabular-nums">${this.rp(o.total)}</span></div>
           </div>
         </div>

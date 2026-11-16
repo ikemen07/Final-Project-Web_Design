@@ -121,34 +121,14 @@ const Checkout = {
     const subtotalEl = document.getElementById('summary-subtotal');
     const shippingEl = document.getElementById('summary-shipping');
     const totalEl = document.getElementById('summary-total');
-    const freeShippingProgress = document.getElementById('free-shipping-progress');
-    const freeShippingNotice = document.getElementById('free-shipping-notice');
 
     if (subtotalEl) subtotalEl.textContent = `Rp ${totals.subtotal.toLocaleString('id-ID')}`;
 
     if (shippingEl) {
-      if (totals.shipping === 0) {
-        shippingEl.innerHTML = '<span class="text-emerald-600 font-bold uppercase text-[11px]">Gratis</span>';
-      } else {
-        shippingEl.textContent = `Rp ${totals.shipping.toLocaleString('id-ID')}`;
-      }
+      shippingEl.textContent = `Rp ${totals.shipping.toLocaleString('id-ID')}`;
     }
 
     if (totalEl) totalEl.textContent = `Rp ${totals.total.toLocaleString('id-ID')}`;
-
-    // Free shipping threshold progress bar
-    if (freeShippingProgress && freeShippingNotice) {
-      const remaining = Math.max(0, totals.freeShippingThreshold - totals.subtotal);
-      const percentage = Math.min(100, (totals.subtotal / totals.freeShippingThreshold) * 100);
-
-      freeShippingProgress.style.width = `${percentage}%`;
-
-      if (totals.isFreeShipping) {
-        freeShippingNotice.innerHTML = '<span class="text-emerald-600 font-bold">🎉 Selamat! Anda mendapatkan Gratis Ongkir!</span>';
-      } else {
-        freeShippingNotice.innerHTML = `Tambah belanja <strong>Rp ${remaining.toLocaleString('id-ID')}</strong> lagi untuk <strong>Gratis Ongkir</strong>`;
-      }
-    }
   },
 
   changeQty(productId, newQty) {
@@ -281,7 +261,7 @@ const Checkout = {
       'Pesanan Berhasil Dibuat!',
       modalHtml,
       'success',
-      'Lacak Pesanan Saya'
+      'Lacak My Order'
     ).then(() => {
       window.location.href = 'pesanan.html?id=' + encodeURIComponent(order.orderId);
     });
