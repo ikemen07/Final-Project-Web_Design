@@ -15,7 +15,7 @@
 ## 2. Project Objectives
 
 1. Mengimplementasikan konsep dasar rekayasa web: **HTML5 Semantik**, **CSS3 Tingkat Lanjut** (Flexbox, CSS Grid, CSS Variables, Responsive Media Queries), dan **Vanilla JavaScript** (DOM Manipulation, Event Handling, Higher-Order Array Methods).
-2. Membangun sistem katalog produk komprehensif dengan **35 produk awal** yang terdistribusi secara seimbang ke dalam **7 kategori produk** dan **5 jenis kulit unik**.
+2. Membangun sistem katalog produk komprehensif dengan **49 produk awal** (foto asli dari tim) di **8 kategori** (termasuk Bundle) dengan filter **5 jenis kulit**.
 3. Menyediakan alur belanja e-commerce lengkap end-to-end: penelusuran katalog, filter gabungan (*combinable filters*), detail produk, checkout dengan daftar item dinamis, batasan stok (*stock clamping*), dan simulasi checkout dengan verifikasi data formulir.
 4. Membangun **Portal Admin Dashboard** fungsional dengan visualisasi data interaktif menggunakan **Chart.js**, manajemen inventaris lengkap (**CRUD**: *Create, Read, Update, Delete*), pembaruan status pesanan, serta fitur ekspor data ke format **CSV**.
 5. Menghadirkan fitur modern penunjang pengalaman pengguna: **Konsultan AI Cerdas** (*rule-based beauty advisor*), **Mode Gelap (*Dark Mode*)**, dan sistem daftar keinginan (**Wishlist**).
@@ -42,7 +42,7 @@
 
 ## 4. Main Features
 
-- **Katalog 35 Produk Multi-Kriteria**: Filter pencarian instan (nama, brand, deskripsi), 7 kategori, 5 jenis kulit, rentang harga, rating, ketersediaan stok, dan 5 metode pengurutan.
+- **Katalog 49 Produk Multi-Kriteria**: Filter pencarian instan (nama, brand, deskripsi), 8 kategori, 5 jenis kulit, rentang harga, rating, ketersediaan stok, dan 5 metode pengurutan.
 - **Pesan Langsung & Checkout**: Tombol *Pesan* di kartu produk dan halaman detail langsung membuka halaman checkout. Daftar item di checkout bisa diubah jumlahnya atau dihapus (dengan konfirmasi), dilengkapi subtotal otomatis, batas stok, dan bilah progres *Gratis Ongkir* (target Rp 200.000). Tidak ada menu Keranjang di navigasi.
 - **Checkout & Simulasi Pembayaran**: Formulir pemesanan tervalidasi dengan opsi Transfer Bank (BCA/Mandiri/BRI), E-Wallet (GoPay/OVO/ShopeePay), dan Cash on Delivery (COD).
 - **Admin Dashboard & CRUD Inventaris**:
@@ -67,7 +67,7 @@
 Hero section, **banner promo berupa carousel** (Gratis Ongkir, Konsultasi AI, Cek Status Pesanan; otomatis berganti dan bisa digeser), serta produk unggulan (*Featured Products*).
 
 ### Halaman 2: Produk (`catalog.html`)
-Pusat eksplorasi produk dengan filter gabungan: 7 kategori, 5 jenis kulit, rentang harga, rating minimum, ketersediaan stok, live search, dan 5 metode pengurutan. Menampilkan *empty state* yang informatif jika filter tidak menghasilkan produk.
+Pusat eksplorasi produk dengan filter gabungan: 8 kategori, 5 jenis kulit, rentang harga, rating minimum, ketersediaan stok, live search, dan 5 metode pengurutan. Menampilkan *empty state* yang informatif jika filter tidak menghasilkan produk.
 
 ### Halaman 3: Detail Produk (`product.html`)
 Foto produk, brand, harga, stok aktual, stepper kuantitas yang terkontrol stok, tombol *Pesan Sekarang*, tombol *Simpan ke Wishlist*, deskripsi formula aktif, dan produk terkait.
@@ -89,45 +89,61 @@ Validasi format email, nomor WhatsApp, dan kecocokan kata sandi, dengan tombol i
 
 ---
 
-## 6. Struktur Kategori & Jenis Kulit (Distribusi 35 Produk)
+## 6. Struktur Kategori & Jenis Kulit (Distribusi 49 Produk)
 
-| No | Kategori | Jenis Kulit | Kode Produk | Nama Produk | Harga (IDR) |
-|---|---|---|---|---|---|
-| 1 | Cleanser | Berminyak | CLN-001 | Purifying Tea Tree Foaming Gel | Rp 139.000 |
-| 2 | Cleanser | Kering | CLN-002 | Hydrating Ceramide Milky Cleanser | Rp 149.000 |
-| 3 | Cleanser | Kombinasi | CLN-003 | Balancing Green Tea Gel Wash | Rp 135.000 |
-| 4 | Cleanser | Sensitif | CLN-004 | Ultra-Calming Oat Barrier Cleanser | Rp 159.000 |
-| 5 | Cleanser | Berjerawat | CLN-005 | Acne Relief Salicylic Gentle Foam | Rp 145.000 |
-| 6 | Toner | Berminyak | TNR-001 | Pore Clarifying Witch Hazel Toner | Rp 129.000 |
-| 7 | Toner | Kering | TNR-002 | Deep Moisture Hyaluronic Essence Toner | Rp 165.000 |
-| 8 | Toner | Kombinasi | TNR-003 | Dual Action Balancing Hydrosol | Rp 145.000 |
-| 9 | Toner | Sensitif | TNR-004 | Centella Soothing Calming Tonic | Rp 155.000 |
-| 10 | Toner | Berjerawat | TNR-005 | Clarifying BHA Pore Refining Toner | Rp 159.000 |
-| 11 | Serum | Berminyak | SRM-001 | Niacinamide 10% + Zinc Sebum Serum | Rp 189.000 |
-| 12 | Serum | Kering | SRM-002 | Multi-Molecular Hyaluronic Hydrating Booster | Rp 225.000 |
-| 13 | Serum | Kombinasi | SRM-003 | Radiance Peptide & Vitamin C Fluid | Rp 215.000 |
-| 14 | Serum | Sensitif | SRM-004 | Barrier Recovery Ceramide Complex | Rp 235.000 |
-| 15 | Serum | Berjerawat | SRM-005 | Intensive Acne BHA + Centella Ampoule | Rp 199.000 |
-| 16 | Moisturizer | Berminyak | MOI-001 | Oil-Free Water Gel Mattifying Cream | Rp 169.000 |
-| 17 | Moisturizer | Kering | MOI-002 | Rich Shea & Ceramide Barrier Cream | Rp 195.000 |
-| 18 | Moisturizer | Kombinasi | MOI-003 | Dewy Hydrating Gel-Cream Infusion | Rp 179.000 |
-| 19 | Moisturizer | Sensitif | MOI-004 | Ultra-Gentle Soothing Comfort Balm | Rp 189.000 |
-| 20 | Moisturizer | Berjerawat | MOI-005 | Blemish Calm Lightweight Lotion | Rp 175.000 |
-| 21 | Sunscreen | Berminyak | SUN-001 | Matte Velvet Airy Sunscreen SPF 50+ | Rp 175.000 |
-| 22 | Sunscreen | Kering | SUN-002 | Hydra Glow Moisture Sun Milk SPF 50+ | Rp 185.000 |
-| 23 | Sunscreen | Kombinasi | SUN-003 | Invisible Fluid Daily Shield SPF 50+ | Rp 169.000 |
-| 24 | Sunscreen | Sensitif | SUN-004 | 100% Mineral Physical Sunscreen SPF 50+ | Rp 199.000 |
-| 25 | Sunscreen | Berjerawat | SUN-005 | Non-Comedogenic Acne Sun Shield SPF 45 | Rp 165.000 |
-| 26 | Masker | Berminyak | MSK-001 | Volcanic Clay Deep Pore Detox Mask | Rp 125.000 |
-| 27 | Masker | Kering | MSK-002 | Rose Collagen Overnight Sleeping Mask | Rp 169.000 |
-| 28 | Masker | Kombinasi | MSK-003 | Multi-Balancing Sheet Mask (5-Pack) | Rp 99.000 |
-| 29 | Masker | Sensitif | MSK-004 | Calendula Hydrogel Calming Mask | Rp 139.000 |
-| 30 | Masker | Berjerawat | MSK-005 | Tea Tree & Sulfur Clarifying Clay Mask | Rp 135.000 |
-| 31 | Makeup | Berminyak | MKP-001 | Poreless Matte Velvet Cushion SPF 35 | Rp 219.000 |
-| 32 | Makeup | Kering | MKP-002 | Dewy Luminous Serum Tint Foundation | Rp 235.000 |
-| 33 | Makeup | Kombinasi | MKP-003 | Natural Balance Satin Skin Tint | Rp 209.000 |
-| 34 | Makeup | Sensitif | MKP-004 | Hypoallergenic Calming BB Cream | Rp 225.000 |
-| 35 | Makeup | Berjerawat | MKP-005 | Acne-Safe Mineral Powder Foundation | Rp 195.000 |
+Foto produk berasal dari tim. Nama dan brand mengikuti kemasan pada foto. **Harga, stok, dan rating adalah data contoh** yang perlu disesuaikan. Jenis kulit mengikuti klaim pada kemasan bila ada; produk tanpa klaim jenis kulit diberi label *Semua Jenis Kulit* dan muncul di setiap filter jenis kulit.
+
+| No | Kategori | Jenis Kulit | Kode Produk | Nama Produk | Brand | Harga (IDR) |
+|---|---|---|---|---|---|---|
+| 1 | Cleanser | Kombinasi | CLN-001 | 5X Ceramide Low pH Cleanser | Skintific | Rp 99.000 |
+| 2 | Cleanser | Semua Jenis Kulit | CLN-002 | 5X Ceramide Barrier Micellar Water | Skintific | Rp 119.000 |
+| 3 | Cleanser | Semua Jenis Kulit | CLN-003 | Brightening Micellar Water Peach + Niacinamide | Glad2Glow | Rp 59.000 |
+| 4 | Cleanser | Semua Jenis Kulit | CLN-004 | Mugwort Salicylic Acid Acne Clear Micellar Water | Glad2Glow | Rp 59.000 |
+| 5 | Cleanser | Semua Jenis Kulit | CLN-005 | Cherry Blossom Betaine Micellar Water | Glad2Glow | Rp 59.000 |
+| 6 | Cleanser | Berminyak | CLN-006 | Shirojyun Ultimate Whitening Face Wash | Hada Labo | Rp 49.000 |
+| 7 | Cleanser | Kering | CLN-007 | Gokujyun Ultimate Moisturizing Face Wash | Hada Labo | Rp 49.000 |
+| 8 | Toner | Kering | TNR-001 | Radiance Glow Serum Spray | Glad2Glow | Rp 79.000 |
+| 9 | Serum | Kombinasi | SRM-001 | PDRN Bright & Smooth Serum | Skintific | Rp 149.000 |
+| 10 | Serum | Berjerawat | SRM-002 | 2% Salicylic Acid Anti-Acne Serum | Skintific | Rp 139.000 |
+| 11 | Serum | Sensitif | SRM-003 | 5X Ceramide Barrier Serum | Skintific | Rp 149.000 |
+| 12 | Serum | Berjerawat | SRM-004 | Centella Salicylic Acid Power Acne Serum | Glad2Glow | Rp 69.000 |
+| 13 | Serum | Kombinasi | SRM-005 | Perfect Vita C Bright Glow Serum | Glad2Glow | Rp 59.000 |
+| 14 | Serum | Berminyak | SRM-006 | Pomegranate 10% Niacinamide Power Bright Serum | Glad2Glow | Rp 69.000 |
+| 15 | Moisturizer | Sensitif | MOI-001 | 5X Ceramide Barrier Moisture Gel | Skintific | Rp 129.000 |
+| 16 | Sunscreen | Berminyak | SUN-001 | UV Shield Airy Smooth Sunscreen Serum SPF 50 PA++++ | Wardah | Rp 59.000 |
+| 17 | Sunscreen | Berjerawat | SUN-002 | UV Shield Acne Calming Sunscreen Moisturizer SPF 50 PA++++ | Wardah | Rp 59.000 |
+| 18 | Masker | Kombinasi | MSK-001 | Niacinamide Bright Boost Clay Stick | Skintific | Rp 99.000 |
+| 19 | Masker | Berjerawat | MSK-002 | Mugwort Acne Clay Stick | Skintific | Rp 99.000 |
+| 20 | Masker | Berminyak | MSK-003 | Alaska Volcano Pore Clay Stick | Skintific | Rp 99.000 |
+| 21 | Makeup | Semua Jenis Kulit | MKP-001 | Tintdorable Blurry Tint - Burgundy | Hanasui | Rp 49.000 |
+| 22 | Makeup | Semua Jenis Kulit | MKP-002 | Tintdorable Blurry Tint - Terracotta | Hanasui | Rp 49.000 |
+| 23 | Makeup | Semua Jenis Kulit | MKP-003 | Tintdorable Blurry Tint - Chocolate | Hanasui | Rp 49.000 |
+| 24 | Makeup | Semua Jenis Kulit | MKP-004 | Tintdorable Blurry Tint - Coral Rose | Hanasui | Rp 49.000 |
+| 25 | Makeup | Semua Jenis Kulit | MKP-005 | Tintdorable Blurry Tint - Soft Rose | Hanasui | Rp 49.000 |
+| 26 | Makeup | Berminyak | MKP-006 | Perfect Stay Serum Matte Cushion Foundation SPF 50 PA++++ | Skintific | Rp 159.000 |
+| 27 | Makeup | Kering | MKP-007 | Cover Glow Perfect Cushion | Skintific | Rp 179.000 |
+| 28 | Makeup | Berminyak | MKP-008 | Perfect Stay Velvet Matte Cushion | Skintific | Rp 169.000 |
+| 29 | Makeup | Semua Jenis Kulit | MKP-009 | Blurring Skin Tint | Glad2Glow | Rp 89.000 |
+| 30 | Makeup | Semua Jenis Kulit | MKP-010 | Highlight & Contour Palette 01 | Judydoll | Rp 169.000 |
+| 31 | Makeup | Semua Jenis Kulit | MKP-011 | Next Level Bouncy Blush - Berry | Hanasui | Rp 59.000 |
+| 32 | Makeup | Semua Jenis Kulit | MKP-012 | Next Level Bouncy Blush - Peach | Hanasui | Rp 59.000 |
+| 33 | Makeup | Semua Jenis Kulit | MKP-013 | Next Level Bouncy Blush - Mauve | Hanasui | Rp 59.000 |
+| 34 | Makeup | Semua Jenis Kulit | MKP-014 | Tintdorable Lip Stain - Cocoa Nude | Hanasui | Rp 45.000 |
+| 35 | Makeup | Semua Jenis Kulit | MKP-015 | Tintdorable Lip Stain - Fuchsia | Hanasui | Rp 45.000 |
+| 36 | Makeup | Semua Jenis Kulit | MKP-016 | Tintdorable Lip Stain - Soft Nude | Hanasui | Rp 45.000 |
+| 37 | Makeup | Kering | MKP-017 | Get a Grip Makeup Setting Spray - Hydro | Dazzle Me | Rp 79.000 |
+| 38 | Makeup | Kering | MKP-018 | All Day Glow Setting Spray | Glad2Glow | Rp 89.000 |
+| 39 | Makeup | Semua Jenis Kulit | MKP-019 | Cover Fit Serum Cushion | Glowsophy | Rp 139.000 |
+| 40 | Makeup | Berminyak | MKP-020 | Get a Grip Makeup Setting Spray - Matte Fix | Dazzle Me | Rp 79.000 |
+| 41 | Makeup | Kering | MKP-021 | Cover Glow Serum Cushion | Glowsophy | Rp 139.000 |
+| 42 | Makeup | Kombinasi | MKP-022 | Get a Grip Makeup Setting Spray - Dewy Fix | Dazzle Me | Rp 79.000 |
+| 43 | Makeup | Berminyak | MKP-023 | All Day Matte Setting Spray | Glad2Glow | Rp 89.000 |
+| 44 | Bundle | Semua Jenis Kulit | BDL-001 | Next Level Bouncy Blush Duo Set | Hanasui | Rp 105.000 |
+| 45 | Bundle | Semua Jenis Kulit | BDL-002 | Tintdorable Lip Stain Duo Set | Hanasui | Rp 79.000 |
+| 46 | Bundle | Semua Jenis Kulit | BDL-003 | Tintdorable Blurry Tint Duo Set | Hanasui | Rp 89.000 |
+| 47 | Bundle | Berjerawat | BDL-004 | Clay Care Set | Skintific | Rp 259.000 |
+| 48 | Bundle | Semua Jenis Kulit | BDL-005 | All Day Glow Set | Glad2Glow | Rp 299.000 |
+| 49 | Bundle | Sensitif | BDL-006 | Barrier Care Set | Skintific | Rp 429.000 |
 
 ---
 
@@ -152,7 +168,7 @@ SKINORA/
 │   └── dashboard.css           # Styling Khusus Tabel, Sidebar, dan Status Badges Admin
 │
 ├── js/
-│   ├── data.js                 # Dataset Awal: 35 Produk, 7 Kategori, Akun Demo, Sample Order
+│   ├── data.js                 # Dataset Awal: 49 Produk, 8 Kategori, Akun Demo, Sample Order
 │   ├── storage.js              # Manajemen Local Storage & Fallback Seeding
 │   ├── notifications.js        # Wrapper SweetAlert2 & Toast Notifikasi
 │   ├── validation.js           # Validasi Klien Formulir Checkout, Auth, dan Produk
@@ -175,7 +191,7 @@ SKINORA/
 │
 ├── assets/
 │   ├── images/
-│   │   ├── products/           # Direktori 35 File Gambar Placeholder Produk (.jpg & .svg)
+│   │   ├── products/           # Direktori 49 foto produk (.jpg)
 │   │   ├── banners/            # Banner Hero dan Promo Resolusi Tinggi
 │   │   └── icons/              # Aset Ikon Pendukung
 │   └── logo/
@@ -220,8 +236,8 @@ Aplikasi menggunakan key penyimpanan terstruktur pada `localStorage`:
 
 | Key Storage | Tipe Data | Deskripsi |
 |---|---|---|
-| `skinora_products` | `Array<Object>` | Menyimpan 35 data produk katalog beserta perubahan CRUD admin |
-| `skinora_categories` | `Array<Object>` | Menyimpan 7 kategori produk aktif |
+| `skinora_products` | `Array<Object>` | Menyimpan 49 data produk katalog beserta perubahan CRUD admin |
+| `skinora_categories` | `Array<Object>` | Menyimpan 8 kategori produk aktif |
 | `skinora_users` | `Array<Object>` | Menyimpan akun pengguna terdaftar (Admin & Customer) |
 | `skinora_session` | `Object / null` | Menyimpan sesi pengguna yang sedang aktif saat ini |
 | `skinora_cart` | `Array<Object>` | Menyimpan daftar barang yang akan dipesan di halaman checkout |
@@ -230,7 +246,7 @@ Aplikasi menggunakan key penyimpanan terstruktur pada `localStorage`:
 | `skinora_orders` | `Array<Object>` | Menyimpan seluruh riwayat transaksi pesanan pelanggan |
 | `skinora_theme` | `String` | Menyimpan preferensi tema (`'light'` atau `'dark'`) |
 
-*Catatan: Sistem menyertakan mekanisme auto-seeding pada file `js/storage.js` yang akan otomatis memuat 35 produk awal jika penyimpanan lokal browser pengguna masih kosong.*
+*Catatan: Sistem menyertakan mekanisme auto-seeding pada file `js/storage.js` yang akan otomatis memuat 49 produk awal (dan memperbarui data lama lewat `DATA_VERSION`) jika penyimpanan lokal browser pengguna masih kosong.*
 
 ---
 
@@ -242,7 +258,7 @@ Aplikasi menggunakan key penyimpanan terstruktur pada `localStorage`:
    *Menampilkan navigasi Pink & White, banner promo, headline hero, dan showcase 4 produk unggulan.*
 
 2. **[Screenshot Placeholder 2]: Katalog Produk & Filter Multi-Kriteria**  
-   *Menampilkan sidebar filter 7 kategori, 5 jenis kulit, rentang harga, dan grid 35 produk responsif.*
+   *Menampilkan sidebar filter 8 kategori, 5 jenis kulit, rentang harga, dan grid 49 produk responsif.*
 
 3. **[Screenshot Placeholder 3]: Halaman Detail Produk (PDP)**  
    *Menampilkan gambar besar produk, stepper kuantitas, status stok, tombol Pesan Sekarang, dan related products.*
@@ -284,11 +300,11 @@ Proyek ini disusun dan dikembangkan oleh Tim 5 Mahasiswa:
 2. **Mahasiswa 2 (UI/UX Designer & Product Assets)**:  
    Perancangan identitas visual luxury pink-and-white, penyusunan direktori aset gambar produk (`assets/images/products/`), tipografi, dan mockup antarmuka.
 3. **Mahasiswa 3 (Frontend Developer - Catalog & Filters)**:  
-   Pengembangan halaman katalog produk, implementasi algoritma pencarian dinamis, filter gabungan 7 kategori & 5 jenis kulit, dan penataan kartu produk.
+   Pengembangan halaman katalog produk, implementasi algoritma pencarian dinamis, filter gabungan 8 kategori & 5 jenis kulit, dan penataan kartu produk.
 4. **Mahasiswa 4 (Frontend Developer - Cart & Checkout System)**:  
    Pengembangan alur pesan langsung dan checkout, stock clamping logic, simulasi pembayaran, kalkulasi biaya ongkir, dan konfirmasi pesanan SweetAlert2.
 5. **Mahasiswa 5 (Quality Assurance & Documentation)**:  
-   Penyusunan dataset 35 produk, pengujian responsivitas pada perangkat mobile dan tablet, verifikasi bug, serta dokumentasi komprehensif README.md.
+   Penyusunan dataset 49 produk, pengujian responsivitas pada perangkat mobile dan tablet, verifikasi bug, serta dokumentasi komprehensif README.md.
 
 ---
 
@@ -297,7 +313,7 @@ Proyek ini disusun dan dikembangkan oleh Tim 5 Mahasiswa:
 - [x] 100% Menggunakan **HTML5, CSS3, dan Vanilla JavaScript** tanpa framework (React/Vue/Angular).
 - [x] Tepat **7 Kategori Produk** (Cleanser, Toner, Serum, Moisturizer, Sunscreen, Masker, Makeup).
 - [x] Tepat **5 Produk per Kategori** untuk **5 Jenis Kulit** (Berminyak, Kering, Kombinasi, Sensitif, Berjerawat).
-- [x] Total **35 Produk Awal Terverifikasi** dengan data harga realistis (IDR), deskripsi, dan stok.
+- [x] Total **49 Produk Awal** dengan foto asli, deskripsi dari kemasan, serta harga, stok, dan rating contoh yang perlu disesuaikan.
 - [x] Direktori aset gambar produk terorganisasi: `assets/images/products/<category>-<skin>.jpg`.
 - [x] Delapan tampilan halaman berfungsi penuh (`index`, `catalog`, `product`, `about`, `pesanan`, `cart`, `dashboard`, `login`/`register`).
 - [x] Operasi CRUD produk dan kategori pada Admin Dashboard berfungsi menyeluruh.

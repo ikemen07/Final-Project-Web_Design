@@ -11,7 +11,8 @@ const STORAGE_KEYS = {
   CART: 'skinora_cart',
   WISHLIST: 'skinora_wishlist',
   ORDERS: 'skinora_orders',
-  THEME: 'skinora_theme'
+  THEME: 'skinora_theme',
+  DATA_VERSION: 'skinora_data_version'
 };
 
 const Storage = {
@@ -64,22 +65,24 @@ const Storage = {
   init() {
     const initial = window.SKINORA_INITIAL || {};
 
-    // 1. Products (Ensure full 35 products)
+    // 0. Versi data: bila katalog awal berubah, perbarui produk & kategori di Local Storage lama
+    if (typeof DATA_VERSION !== 'undefined' && this.get(STORAGE_KEYS.DATA_VERSION) !== DATA_VERSION) {
+      this.set(STORAGE_KEYS.PRODUCTS, initial.products || []);
+      this.set(STORAGE_KEYS.CATEGORIES, initial.categories || []);
+      this.set(STORAGE_KEYS.CART, []);
+      this.set(STORAGE_KEYS.WISHLIST, []);
+      // pesanan demo diganti versi baru; pesanan buatan pengguna tetap dipertahankan
+      const demoIds = (initial.orders || []).map(o => o.orderId);
+      const kept = (this.get(STORAGE_KEYS.ORDERS) || []).filter(o => !demoIds.includes(o.orderId));
+      this.set(STORAGE_KEYS.ORDERS, [...(initial.orders || []), ...kept]);
+      this.set(STORAGE_KEYS.DATA_VERSION, DATA_VERSION);
+    }
+
+    // 1. Products (Seed katalog awal)
     const existingProducts = this.get(STORAGE_KEYS.PRODUCTS);
     if (!existingProducts || !Array.isArray(existingProducts) || existingProducts.length === 0) {
       this.set(STORAGE_KEYS.PRODUCTS, initial.products || []);
-      console.log(`[Storage] Seeded 35 initial products.`);
-    } else {
-      let needsUpdate = false;
-      existingProducts.forEach(p => {
-        if (p.image && p.image.endsWith('.jpg') && p.image.includes('assets/images/products/')) {
-          p.image = p.image.replace('.jpg', '.svg');
-          needsUpdate = true;
-        }
-      });
-      if (needsUpdate) {
-        this.set(STORAGE_KEYS.PRODUCTS, existingProducts);
-      }
+      console.log(`[Storage] Seeded initial products.`);
     }
 
     // 2. Categories (7 categories)

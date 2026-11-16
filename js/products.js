@@ -40,8 +40,14 @@ const Products = {
   /**
    * Get products by skin type
    */
+  /** Produk 'Semua Jenis Kulit' cocok untuk setiap filter jenis kulit */
+  matchesSkin(product, skinType) {
+    if (!skinType || skinType === 'all') return true;
+    return product.skinType === 'Semua Jenis Kulit' || product.skinType.toLowerCase() === skinType.toLowerCase();
+  },
+
   getBySkinType(skinType) {
-    return this.getAll().filter(p => p.skinType.toLowerCase() === skinType.toLowerCase());
+    return this.getAll().filter(p => this.matchesSkin(p, skinType));
   },
 
   /**
@@ -79,7 +85,7 @@ const Products = {
       description: productData.description.trim(),
       image: productData.image && productData.image.trim() !== '' 
         ? productData.image.trim() 
-        : `assets/images/products/${productData.category.toLowerCase()}-${this._mapSkinSlug(productData.skinType)}.svg`,
+        : 'assets/images/banners/hero-banner.jpg',
       stock: Number(productData.stock),
       rating: productData.rating ? Number(productData.rating) : 4.8,
       brand: productData.brand.trim(),
@@ -217,9 +223,10 @@ const Products = {
       'Kering': 'dry',
       'Kombinasi': 'combination',
       'Sensitif': 'sensitive',
-      'Berjerawat': 'acne'
+      'Berjerawat': 'acne',
+      'Semua Jenis Kulit': 'all'
     };
-    return map[skinType] || 'oily';
+    return map[skinType] || 'all';
   }
 };
 

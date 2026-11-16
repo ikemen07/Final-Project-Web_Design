@@ -232,7 +232,7 @@ const Assistant = {
     if (!container) return;
 
     const all = Products.getAll();
-    let matches = all.filter(p => p.skinType.toLowerCase() === this.state.skinType.toLowerCase());
+    let matches = all.filter(p => Products.matchesSkin(p, this.state.skinType));
 
     if (this.state.category && this.state.category !== 'all') {
       matches = matches.filter(p => p.category.toLowerCase() === this.state.category.toLowerCase());
@@ -244,7 +244,7 @@ const Assistant = {
 
     // Fallback if strict budget filtered out everything
     if (matches.length === 0) {
-      matches = all.filter(p => p.skinType.toLowerCase() === this.state.skinType.toLowerCase()).slice(0, 3);
+      matches = all.filter(p => Products.matchesSkin(p, this.state.skinType)).slice(0, 3);
     }
 
     container.innerHTML = `
@@ -313,7 +313,7 @@ const Assistant = {
 
     let results = all;
     if (matchedSkin) {
-      results = results.filter(p => p.skinType.toLowerCase() === matchedSkin);
+      results = results.filter(p => Products.matchesSkin(p, matchedSkin));
     }
     if (matchedCat) {
       results = results.filter(p => p.category.toLowerCase() === matchedCat);

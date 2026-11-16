@@ -211,7 +211,7 @@ const Catalog = {
 
     // 3. Skin Type
     if (this.state.skinType && this.state.skinType !== 'all') {
-      products = products.filter(p => p.skinType.toLowerCase() === this.state.skinType.toLowerCase());
+      products = products.filter(p => Products.matchesSkin(p, this.state.skinType));
     }
 
     // 4. Price range

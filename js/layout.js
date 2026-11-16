@@ -4,7 +4,7 @@
  * ke elemen <div id="site-header"></div> di setiap halaman publik.
  *
  * Navigasi tetap (4 menu, tanpa dropdown):
- *   Home | Produk | About | Pesanan Saya
+ *   Home | Produk | About | My Order
  */
 
 (function () {
@@ -12,7 +12,7 @@
     { label: 'Home', href: 'index.html', pages: ['index.html', ''] },
     { label: 'Produk', href: 'catalog.html', pages: ['catalog.html', 'product.html'] },
     { label: 'About', href: 'about.html', pages: ['about.html'] },
-    { label: 'Pesanan Saya', href: 'pesanan.html', pages: ['pesanan.html'] }
+    { label: 'My Order', href: 'pesanan.html', pages: ['pesanan.html'] }
   ];
 
   const currentPage = (window.location.pathname.split('/').pop() || 'index.html').toLowerCase();

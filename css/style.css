@@ -172,6 +172,7 @@ h1, h2, h3, .font-serif {
 .skin-tag-combination { background: #F3E8FF; color: #7C3AED; }
 .skin-tag-sensitive { background: #ECFDF5; color: #059669; }
 .skin-tag-acne { background: #FFF1F2; color: #E11D48; }
+.skin-tag-all { background: #F3F4F6; color: #4B5563; }
 
 .dark .skin-tag-oily { background: rgba(184, 88, 122, 0.25); color: #F7A8C3; }
 .dark .skin-tag-dry { background: rgba(37, 99, 235, 0.25); color: #93C5FD; }
